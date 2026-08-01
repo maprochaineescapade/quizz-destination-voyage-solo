@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trouver ma destination de premier voyage solo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Londrina+Solid&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #004aad;
+      --secondary-color: #c2dcff;
+      --bg-color: #f4f8fc;
+      --card-bg: #ffffff;
+      --text-color: #2c3e50;
+      --border-radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Arial Nova', Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      line-height: 1.5;
+    }
+
+    .container {
+      background-color: var(--card-bg);
+      max-width: 650px;
+      width: 100%;
+      border-radius: var(--border-radius);
+      box-shadow: 0 8px 24px rgba(0, 74, 173, 0.1);
+      padding: 40px 30px;
+      border: 2px solid var(--secondary-color);
+    }
+
+    h1, h2, h3 {
+      font-family: 'Londrina Solid', sans-serif;
+      color: var(--primary-color);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 25px;
+    }
+
+    p {
+      margin-bottom: 20px;
+      font-size: 1.05rem;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      background-color: #ffffff;
+      border: 2px solid var(--secondary-color);
+      border-radius: var(--border-radius);
+      color: var(--primary-color);
+      font-size: 1rem;
+      font-weight: bold;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'Arial Nova', Arial, sans-serif;
+    }
+
+    .btn:hover {
+      background-color: var(--secondary-color);
+      border-color: var(--primary-color);
+    }
+
+    .btn-start {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      text-align: center;
+      font-family: 'Londrina Solid', sans-serif;
+      text-transform: uppercase;
+      font-size: 1.4rem;
+      border: none;
+      padding: 18px;
+    }
+
+    .btn-start:hover {
+      background-color: #003680;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background-color: var(--secondary-color);
+      border-radius: 4px;
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background-color: var(--primary-color);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .destination-card {
+      background-color: #ffffff;
+      border: 1px solid var(--secondary-color);
+      border-left: 5px solid var(--primary-color);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .destination-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+    }
+
+    .destination-region {
+      font-weight: bold;
+      color: #555;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+
+    .destination-card ul {
+      margin-left: 20px;
+      margin-top: 10px;
+    }
+
+    .btn-restart {
+      margin-top: 20px;
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      font-family: 'Londrina Solid', sans-serif;
+      text-transform: uppercase;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Écran d'accueil -->
+    <div id="screen-welcome">
+      <h1>Trouver ma destination de premier voyage solo</h1>
+      <p>Ce questionnaire vous aide à identifier les destinations les plus adaptées à vos critères pour votre tout premier départ en solo.</p>
+      <button class="btn btn-start" onclick="startQuiz()">Lancer le test</button>
+    </div>
+
+    <!-- Écran de question -->
+    <div id="screen-question" class="hidden">
+      <div class="progress-bar">
+        <div id="progress-fill" class="progress-fill"></div>
+      </div>
+      <h2 id="question-title"></h2>
+      <div id="options-container"></div>
+    </div>
+
+    <!-- Écran de résultats -->
+    <div id="screen-results" class="hidden">
+      <h1>Vos 5 destinations recommandées</h1>
+      <p>Voici les 5 options qui correspondent le mieux à vos préférences de voyage :</p>
+      <div id="results-container"></div>
+      <button class="btn btn-restart" onclick="restartQuiz()">Refaire le test</button>
+    </div>
+
+  </div>
+
+  <script>
+    const questions = [
+      {
+        title: "Quelle est la zone géographique souhaitée ?",
+        options: [
+          { text: "En France uniquement", filter: { scope: "france" } },
+          { text: "À l'étranger uniquement", filter: { scope: "etranger" } },
+          { text: "Ouverte à la France et à l'étranger", filter: { scope: "both" } }
+        ]
+      },
+      {
+        title: "Quel environnement recherchez-vous ?",
+        options: [
+          { text: "Ville et patrimoine culturel", filter: { environment: "ville" } },
+          { text: "Campagne et villages tranquilles", filter: { environment: "campagne" } },
+          { text: "Mer, lacs et littoraux", filter: { environment: "mer" } },
+          { text: "Un mélange de plusieurs paysages", filter: { environment: "mix" } }
+        ]
+      },
+      {
+        title: "Quel moyen de transport souhaitez-vous utiliser ?",
+        options: [
+          { text: "Le train", filter: { transport: "train" } },
+          { text: "L'avion", filter: { transport: "avion" } },
+          { text: "La voiture", filter: { transport: "voiture" } },
+          { text: "Indifférent", filter: { transport: "flex" } }
+        ]
+      },
+      {
+        title: "Quelle est la durée envisagée du séjour ?",
+        options: [
+          { text: "Un court séjour (2 à 4 jours)", filter: { duration: "court" } },
+          { text: "Une semaine", filter: { duration: "semaine" } },
+          { text: "Deux semaines ou plus", filter: { duration: "long" } }
+        ]
+      },
+      {
+        title: "Quel est le budget estimé pour le séjour (hors transport principal) ?",
+        options: [
+          { text: "Moins de 500 €", filter: { budget: "eco" } },
+          { text: "Entre 500 € et 1200 €", filter: { budget: "moyen" } },
+          { text: "Plus de 1200 €", filter: { budget: "eleve" } }
+        ]
+      }
+    ];
+
+    const destinations = [
+      {
+        name: "Lisbonne",
+        region: "Portugal (Europe)",
+        scope: "etranger",
+        environment: ["ville", "mer", "mix"],
+        transport: ["avion"],
+        duration: ["court", "semaine"],
+        budget: ["eco", "moyen"],
+        why: "Ville à taille humaine, transports simples, idéale pour une première expérience européenne.",
+        activities: ["Visite des quartiers historiques", "Point de vue depuis les miradouros", "Excursion à Sintra"]
+      },
+      {
+        name: "Annecy & son lac",
+        region: "Haute-Savoie (France)",
+        scope: "france",
+        environment: ["campagne", "mer", "mix"],
+        transport: ["train", "voiture"],
+        duration: ["court", "semaine"],
+        budget: ["moyen", "eleve"],
+        why: "Destination très sécurisante avec un cadre naturel accessible à pied ou à vélo.",
+        activities: ["Tour du lac à vélo", "Visite de la vieille ville", "Randonnée au mont Veyrier"]
+      },
+      {
+        name: "Copenhague",
+        region: "Danemark (Europe)",
+        scope: "etranger",
+        environment: ["ville", "mix"],
+        transport: ["avion"],
+        duration: ["court", "semaine"],
+        budget: ["eleve"],
+        why: "Infra-structures modernes, ville très sûre et très facile à explorer à vélo.",
+        activities: ["Balade au port de Nyhavn", "Visite du parc Tivoli", "Exploration à vélo"]
+      },
+      {
+        name: "La Bretagne du Sud (Vannes & le Golfe)",
+        region: "Bretagne (France)",
+        scope: "france",
+        environment: ["campagne", "mer", "mix"],
+        transport: ["train", "voiture"],
+        duration: ["court", "semaine"],
+        budget: ["eco", "moyen"],
+        why: "Un environnement paisible avec de nombreuses options de balades sur le littoral.",
+        activities: ["Traversée vers l'Île-aux-Moines", "Visite du centre historique de Vannes", "Randonnée sur le sentier des douaniers"]
+      },
+      {
+        name: "Montréal",
+        region: "Québec (Canada)",
+        scope: "etranger",
+        environment: ["ville", "mix"],
+        transport: ["avion"],
+        duration: ["semaine", "long"],
+        budget: ["moyen", "eleve"],
+        why: "L'exotisme de l'Amérique du Nord sans la barrière de la langue et dans un cadre très sûr.",
+        activities: ["Promenade dans le Vieux-Montréal", "Montée du Parc du Mont-Royal", "Découverte des marchés locaux"]
+      },
+      {
+        name: "Chiang Mai",
+        region: "Thaïlande (Asie)",
+        scope: "etranger",
+        environment: ["ville", "campagne", "mix"],
+        transport: ["avion"],
+        duration: ["long"],
+        budget: ["eco"],
+        why: "Destination très accueillante pour les voyageurs solo, avec un coût de la vie bas.",
+        activities: ["Visite des temples historiques", "Cours de cuisine locale", "Excursion dans les montagnes"]
+      },
+      {
+        name: "Strasbourg & la Route des Vins",
+        region: "Alsace (France)",
+        scope: "france",
+        environment: ["ville", "campagne", "mix"],
+        transport: ["train", "voiture"],
+        duration: ["court", "semaine"],
+        budget: ["eco", "moyen"],
+        why: "Très facile d'accès en train, ville piétonne avec de petites communes pittoresques à proximité.",
+        activities: ["Visite de la Petite France", "Découverte des villages alsaciens", "Balade au parc de l'Orangerie"]
+      },
+      {
+        name: "Édimbourg",
+        region: "Écosse (Royaume-Uni)",
+        scope: "etranger",
+        environment: ["ville", "mix"],
+        transport: ["avion", "train"],
+        duration: ["court", "semaine"],
+        budget: ["moyen", "eleve"],
+        why: "Ville compacte, riche en histoire, avec une atmosphère accueillante et facile à parcourir à pied.",
+        activities: ["Visite du château d'Édimbourg", "Ascension d'Arthur's Seat", "Balade sur le Royal Mile"]
+      },
+      {
+        name: "L'Île de Ré",
+        region: "Charente-Maritime (France)",
+        scope: "france",
+        environment: ["mer", "campagne"],
+        transport: ["voiture", "train"],
+        duration: ["court", "semaine"],
+        budget: ["moyen", "eleve"],
+        why: "Un cadre relaxant entièrement praticable à vélo, parfait pour se ressourcer en toute tranquillité.",
+        activities: ["Balades à vélo entre les marais salants", "Visite du Phare des Baleines", "Détente sur les plages"]
+      },
+      {
+        name: "Kyoto",
+        region: "Japon (Asie)",
+        scope: "etranger",
+        environment: ["ville", "campagne", "mix"],
+        transport: ["avion"],
+        duration: ["long"],
+        budget: ["eleve"],
+        why: "Niveau de sécurité extrêmement élevé et transports en commun d'une grande efficacité.",
+        activities: ["Visite du sanctuaire Fushimi Inari", "Découverte des jardins zen", "Promenade dans le quartier de Gion"]
+      }
+    ];
+
+    let currentQuestion = 0;
+    let userAnswers = [];
+
+    function startQuiz() {
+      document.getElementById('screen-welcome').classList.add('hidden');
+      document.getElementById('screen-question').classList.remove('hidden');
+      currentQuestion = 0;
+      userAnswers = [];
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const q = questions[currentQuestion];
+      document.getElementById('question-title').innerText = q.title;
+      
+      const progress = ((currentQuestion) / questions.length) * 100;
+      document.getElementById('progress-fill').style.width = progress + '%';
+
+      const optionsContainer = document.getElementById('options-container');
+      optionsContainer.innerHTML = '';
+
+      q.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'btn';
+        btn.innerText = opt.text;
+        btn.onclick = () => selectOption(opt.filter);
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function selectOption(filter) {
+      userAnswers.push(filter);
+      currentQuestion++;
+
+      if (currentQuestion < questions.length) {
+        showQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      document.getElementById('screen-question').classList.add('hidden');
+      document.getElementById('screen-results').classList.remove('hidden');
+
+      const scoredDestinations = destinations.map(dest => {
+        let score = 0;
+
+        userAnswers.forEach(answer => {
+          if (answer.scope) {
+            if (answer.scope === 'both' || dest.scope === answer.scope) score += 10;
+          }
+          if (answer.environment) {
+            if (dest.environment.includes(answer.environment) || answer.environment === 'mix') score += 5;
+          }
+          if (answer.transport) {
+            if (dest.transport.includes(answer.transport) || answer.transport === 'flex') score += 5;
+          }
+          if (answer.duration) {
+            if (dest.duration.includes(answer.duration)) score += 3;
+          }
+          if (answer.budget) {
+            if (dest.budget.includes(answer.budget)) score += 3;
+          }
+        });
+
+        return { ...dest, score };
+      });
+
+      scoredDestinations.sort((a, b) => b.score - a.score);
+      const top5 = scoredDestinations.slice(0, 5);
+
+      const resultsContainer = document.getElementById('results-container');
+      resultsContainer.innerHTML = '';
+
+      top5.forEach(dest => {
+        const card = document.createElement('div');
+        card.className = 'destination-card';
+        card.innerHTML = `
+          <h3>${dest.name}</h3>
+          <div class="destination-region">${dest.region}</div>
+          <p>${dest.why}</p>
+          <strong>Activités suggérées :</strong>
+          <ul>
+            ${dest.activities.map(act => `<li>${act}</li>`).join('')}
+          </ul>
+        `;
+        resultsContainer.appendChild(card);
+      });
+    }
+
+    function restartQuiz() {
+      document.getElementById('screen-results').classList.add('hidden');
+      document.getElementById('screen-welcome').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
