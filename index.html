@@ -3,649 +3,898 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trouve ta destination solo idéale</title>
-    <!-- Tailwind CSS CDN -->
+    <title>SOLO & SEREINE - Questionnaire Voyage Solo</title>
+    <!-- React & Tailwind CSS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- React & Babel -->
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <!-- FontAwesome & Google Fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@300;400;900&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-blue: #004aad;
-            --light-blue: #c2dcff;
-        }
-
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #f4f8ff;
             color: #1e293b;
         }
-
-        .font-londrina {
-            font-family: 'Londrina Solid', sans-serif;
-            text-transform: uppercase;
-        }
-
-        .bg-brand-primary {
-            background-color: var(--primary-blue);
-        }
-
-        .bg-brand-light {
-            background-color: var(--light-blue);
-        }
-
-        .text-brand-primary {
-            color: var(--primary-blue);
-        }
-
-        .border-brand-primary {
-            border-color: var(--primary-blue);
-        }
-
-        .border-brand-light {
-            border-color: var(--light-blue);
-        }
-
-        .btn-brand {
-            background-color: var(--primary-blue);
-            color: #ffffff;
-            transition: all 0.2s ease-in-out;
-        }
-
-        .btn-brand:hover {
-            background-color: #003680;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(0, 74, 173, 0.25);
-        }
-
-        .option-card {
-            border: 2px solid #e2e8f0;
-            transition: all 0.2s ease;
-        }
-
-        .option-card:hover {
-            border-color: var(--primary-blue);
-            background-color: #f0f6ff;
-            transform: translateY(-2px);
-        }
-
-        .option-card.selected {
-            border-color: var(--primary-blue);
-            background-color: #e6f0ff;
-            box-shadow: 0 4px 12px rgba(0, 74, 173, 0.15);
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--light-blue);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-blue);
-        }
+        .bg-brand-blue { background-color: #004aad; }
+        .text-brand-blue { color: #004aad; }
+        .border-brand-blue { border-color: #004aad; }
+        .bg-brand-light { background-color: #c2dcff; }
+        .hover-brand-blue:hover { background-color: #003882; }
     </style>
 </head>
-<body class="min-h-screen py-8 px-4 sm:px-6 flex justify-center items-center">
-
-    <div id="root" class="w-full max-w-4xl"></div>
+<body>
+    <div id="root"></div>
 
     <script type="text/babel">
         const { useState } = React;
 
-        // Base de données des destinations
-        const DESTINATIONS_DB = [
+        // Base de donnees des 35 destinations validees
+        const DESTINATIONS = [
+            // FRANCE (10)
             {
-                id: "annecy",
-                name: "Annecy et son lac",
-                region: "Haute-Savoie, France",
-                flag: "🇫🇷",
-                geo: "france",
-                env: ["campagne", "nature", "lac"],
-                transport: ["train", "voiture"],
-                duration: ["short", "medium"],
-                budget: ["medium", "high"],
-                image: "https://images.unsplash.com/photo-1596701062351-8c2c14d1fdd0?auto=format&fit=crop&w=800&q=80",
-                description: "Un cadre entre lac et montagnes, avec un centre historique piéton et des pistes cyclables aménagées.",
-                whySolo: "Réseau de transports fluides, pistes cyclables sécurisées autour du lac et atmosphère paisible.",
-                activities: ["Tour du lac à vélo", "Visite de la vieille ville", "Randonnée au Mont Veyrier"]
+                id: 'annecy',
+                name: 'Annecy et son lac',
+                region: 'Haute-Savoie',
+                country: 'France',
+                zone: 'france',
+                tagline: 'Lac, montagne & ruelles de charme',
+                desc: 'Une ville paisible entre eau pure et sommets alpins, ideale pour se ressourcer en toute quietude.',
+                whySolo: 'Une ville hyper securisante, ou tout se fait facilement a pied ou a vélo le long du lac.',
+                activities: ['Balade a vélo autour du lac', 'Exploration de la vieille ville', 'Pédalo ou kayak aux eaux cristallines'],
+                budget: ['low', 'medium'],
+                transport: ['train', 'car'],
+                duration: ['short', 'medium'],
+                type: ['lac', 'montagne', 'nature', 'ville', 'mix'],
+                image: 'https://images.unsplash.com/photo-1548707309-dcebeab9ec98?auto=format&fit=crop&w=800&q=80'
             },
             {
-                id: "saint_malo",
+                id: 'saint-malo',
                 name: "Saint-Malo et la côte d'Émeraude",
-                region: "Bretagne, France",
-                flag: "🇫🇷",
-                geo: "france",
-                env: ["mer", "ville", "nature"],
-                transport: ["train", "voiture"],
-                duration: ["short", "medium"],
-                budget: ["low", "medium"],
-                image: "https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=800&q=80",
-                description: "Une cité corsaire fortifiée bordée par l'océan Atlantique et les sentiers littoraux.",
-                whySolo: "Accès direct en TGV, ville à taille humaine et sentier de grande randonnée (GR34) directement accessible.",
-                activities: ["Balade sur les remparts", "Traversée en bateau vers Dinard", "Randonnée sur le sentier douanier"]
+                region: 'Bretagne',
+                country: 'France',
+                zone: 'france',
+                tagline: 'Air marin & sentiers côtiers',
+                desc: 'La cité corsaire entouree de remparts offre un cadre iodé et ressourçant au fil des marées.',
+                whySolo: 'Parfait pour marcher le long de la mer en toute tranquillité et profiter de la douceur bretonne.',
+                activities: ['Tour des remparts au coucher du soleil', 'Randonnee sur le GR34', 'Pause thalasso face a la mer'],
+                budget: ['low', 'medium'],
+                transport: ['train', 'car'],
+                duration: ['short', 'medium'],
+                type: ['mer', 'nature', 'mix'],
+                image: 'https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?auto=format&fit=crop&w=800&q=80'
             },
             {
-                id: "bordeaux",
-                name: "Bordeaux et le bassin d'Arcachon",
-                region: "Nouvelle-Aquitaine, France",
-                flag: "🇫🇷",
-                geo: "france",
-                env: ["ville", "mer", "mix"],
-                transport: ["train"],
-                duration: ["short", "medium"],
-                budget: ["medium"],
-                image: "https://images.unsplash.com/photo-1549893072-4bc678117f45?auto=format&fit=crop&w=800&q=80",
-                description: "Une métropole culturelle connectée aux grands espaces de la côte atlantique.",
-                whySolo: "Transports urbains très développés (tramway) et liaison rapide en train vers les plages.",
-                activities: ["Promenade sur les quais de la Garonne", "Excursion à la dune du Pilat", "Visite de la Cité du vin"]
+                id: 'bordeaux',
+                name: 'Bordeaux et le bassin d'Arcachon',
+                region: 'Nouvelle-Aquitaine',
+                country: 'France',
+                zone: 'france',
+                tagline: 'Ville, dune & océan',
+                desc: 'Une alliance parfaite entre elegances architecturale et grands espaces oceaniques.',
+                whySolo: 'Transports en commun au top et proximite immediate avec les plages et les pinèdes.',
+                activities: ['Grimper la Dune du Pilat', 'Balade a vélo sur les quai de Garonne', 'Visite de la Cité du Vin'],
+                budget: ['low', 'medium'],
+                transport: ['train', 'car'],
+                duration: ['short', 'medium'],
+                type: ['ville', 'mer', 'mix'],
+                image: 'https://images.unsplash.com/photo-1565619624098-16fa2076046e?auto=format&fit=crop&w=800&q=80'
             },
             {
-                id: "provence",
-                name: "Le Luberon et ses villages",
-                region: "Provence, France",
-                flag: "🇫🇷",
-                geo: "france",
-                env: ["campagne", "nature"],
-                transport: ["voiture"],
-                duration: ["short", "medium"],
-                budget: ["medium", "high"],
-                image: "https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=800&q=80",
-                description: "Des paysages provençaux entre châteaux, marchés locaux et sentiers naturels.",
-                whySolo: "Idéal pour un séjour en voiture à son propre rythme dans un environnement calme.",
-                activities: ["Visite de Gordes et Roussillon", "Sentier des Ocres", "Marchés locaux de producteurs"]
+                id: 'luberon',
+                name: 'Le Luberon et ses villages',
+                region: 'Provence',
+                country: 'France',
+                zone: 'france',
+                tagline: 'Marchés, lavandes & douceur de vivre',
+                desc: 'Des villages perchés pittoresques baignés par la lumière chaleureuse de la Provence.',
+                whySolo: 'Atmosphère apaisante et accueillante, idéale pour flâner a son propre rythme.',
+                activities: ['Flânerie dans le village de Gordes', 'Sentier des Ocre a Roussillon', 'Marchés provencaux colorés'],
+                budget: ['low', 'medium'],
+                transport: ['car'],
+                duration: ['short', 'medium'],
+                type: ['campagne', 'nature', 'mix'],
+                image: 'https://images.unsplash.com/photo-1528728329032-2972f65dfb3f?auto=format&fit=crop&w=800&q=80'
             },
             {
-                id: "strasbourg",
-                name: "Strasbourg et l'Alsace",
-                region: "Alsace, France",
-                flag: "🇫🇷",
-                geo: "france",
-                env: ["ville", "campagne"],
-                transport: ["train", "voiture"],
-                duration: ["short", "medium"],
-                budget: ["low", "medium"],
-                image: "https://images.unsplash.com/photo-1584285418504-0101cf1321f2?auto=format&fit=crop&w=800&q=80",
-                description: "Une ville européenne riche en patrimoine, facilement combinable avec la route des vins.",
-                whySolo: "Réseau cyclable très développé, centre piétonnier et liaisons TER faciles vers les villages voisins.",
-                activities: ["Visite de la Petite France", "Cathédrale Notre-Dame", "Escapade à Colmar en train"]
+                id: 'strasbourg',
+                name: 'Strasbourg et l'Alsace',
+                region: 'Alsace',
+                country: 'France',
+                zone: 'france',
+                tagline: 'Ruelles piétonnes & patrimoine d'exception',
+                desc: 'Une ville chaleureuse, riche en histoire et aux façades a colombages emblematiques.',
+                whySolo: 'Centre-ville entièrement piéton, reseau de pistes cyclables fantastique et grande convivialité.',
+                activities: ['Flâner dans la Petite France', 'Visite de la Cathédrale Notre-Dame', 'Balade le long des canaux'],
+                budget: ['low', 'medium'],
+                transport: ['train', 'car'],
+                duration: ['short'],
+                type: ['ville', 'mix'],
+                image: 'https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?auto=format&fit=crop&w=800&q=80'
             },
             {
-                id: "lisbonne",
-                name: "Lisbonne et Sintra",
-                region: "Portugal",
-                flag: "🇵🇹",
-                geo: "etranger",
-                env: ["ville", "mer", "mix"],
-                transport: ["avion"],
-                duration: ["short", "medium"],
-                budget: ["low", "medium"],
-                image: "https://images.unsplash.com/photo-1503917988258-f87a78e3c995?auto=format&fit=crop&w=800&q=80",
-                description: "Une capitale côtière réputée pour sa luminosité, ses quartiers historiques et sa proximité avec la mer.",
-                whySolo: "Infrastructures touristiques modernes, déplacements simples en tramway/train et réseau d'hébergements varié.",
-                activities: ["Miradors panoramiques", "Visite des palais de Sintra", "Ligne de train côtière vers Cascais"]
+                id: 'la-rochelle',
+                name: 'La Rochelle et l'Île de Ré',
+                region: 'Charente-Maritime',
+                country: 'France',
+                zone: 'france',
+                tagline: 'Océan, vélo & charmants petits ports',
+                desc: 'Une cité maritime dynamique reliée a une île préservée bordée d'océan et de pins.',
+                whySolo: 'Tout se fait a vélo en toute sécurité dans un cadre tonifiant et apaisant.',
+                activities: ['Vélo sur les pistes de l'Île de Ré', 'Visite des Tours du Vieux-Port', 'Coucher de soleil sur l'atlantique'],
+                budget: ['low', 'medium'],
+                transport: ['train', 'car'],
+                duration: ['short', 'medium'],
+                type: ['mer', 'nature', 'mix'],
+                image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80'
             },
             {
-                id: "porto",
-                name: "Porto et la vallée du Douro",
-                region: "Portugal",
-                flag: "🇵🇹",
-                geo: "etranger",
-                env: ["ville", "campagne", "mix"],
-                transport: ["avion"],
-                duration: ["short", "medium"],
-                budget: ["low", "medium"],
-                image: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=800&q=80",
-                description: "Une ville bordée par le fleuve Douro, réputée pour son architecture et ses paysages viticoles.",
-                whySolo: "Centre-ville compact se visitant à pied et excursions en train faciles le long du fleuve.",
-                activities: ["Promenade sur les berges du Douro", "Visite des caves de Gaia", "Excursion en train dans la vallée"]
+                id: 'biarritz',
+                name: 'Biarritz et le Pays Basque',
+                region: 'Pyrénées-Atlantiques',
+                country: 'France',
+                zone: 'france',
+                tagline: 'Océan, surf & culture basque',
+                desc: 'L'air marin des vagues atlantiques mêlé aux traditions vivantes de la côte basque.',
+                whySolo: 'Ambiance décontractée et sportive, idéale pour recharger ses batteries face aux vagues.',
+                activities: ['Initiation au surf ou yoga face mer', 'Marche au Rocher de la Vierge', 'Découverte des halles de Biarritz'],
+                budget: ['low', 'medium', 'high'],
+                transport: ['train', 'plane', 'car'],
+                duration: ['short', 'medium'],
+                type: ['mer', 'nature', 'mix'],
+                image: 'https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=800&q=80'
             },
             {
-                id: "quebec",
-                name: "Montréal et Québec",
-                region: "Canada",
-                flag: "🇨🇦",
-                geo: "etranger",
-                env: ["ville", "nature", "mix"],
-                transport: ["avion"],
-                duration: ["long", "maxi"],
-                budget: ["high", "maxi"],
-                image: "https://images.unsplash.com/photo-1519178614-68693b05f61c?auto=format&fit=crop&w=800&q=80",
-                description: "Un mélange de grands espaces naturels et de métropoles francophones d'Amérique du Nord.",
-                whySolo: "Absence de barrière de la langue, transports interurbains organisés et cadre très structuré.",
-                activities: ["Parc du Mont-Royal à Montréal", "Vieux-Québec à pied", "Excursion dans les parcs nationaux"]
+                id: 'aix',
+                name: 'Aix-en-Provence et les Calanques',
+                region: 'Bouches-du-Rhône',
+                country: 'France',
+                zone: 'france',
+                tagline: 'Soleil, calanques & ruelles historiques',
+                desc: 'Le charme raffiné d'une ville d'eau et d'art baignée de lumière, proche de paysages spectaculaires.',
+                whySolo: 'Réseau de bus facile vers les calanques, ville très piétonne et très agréable.',
+                activities: ['Randonnee au parc national des Calanques', 'Flânerie sur le Cours Mirabeau', 'Pause café sous les platanes'],
+                budget: ['low', 'medium'],
+                transport: ['train', 'car'],
+                duration: ['short', 'medium'],
+                type: ['ville', 'nature', 'mer', 'mix'],
+                image: 'https://images.unsplash.com/photo-1569949381669-ecf31ae8e613?auto=format&fit=crop&w=800&q=80'
             },
             {
-                id: "copenhague",
-                name: "Copenhague",
-                region: "Danemark",
-                flag: "🇩🇰",
-                geo: "etranger",
-                env: ["ville", "mer"],
-                transport: ["avion", "train"],
-                duration: ["short", "medium"],
-                budget: ["high"],
-                image: "https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?auto=format&fit=crop&w=800&q=80",
-                description: "Une capitale scandinave orientée vers le design, le vélo et l'aménagement maritime.",
-                whySolo: "Réseau cyclable de référence mondiale, métro automatique fluide et signalétique très claire.",
-                activities: ["Sillonner la ville à vélo", "Visite du canal de Nyhavn", "Musée d'art moderne Louisiana"]
+                id: 'chamonix',
+                name: 'Chamonix-Mont-Blanc',
+                region: 'Haute-Savoie',
+                country: 'France',
+                zone: 'france',
+                tagline: 'Grands espaces & sommets majestueux',
+                desc: 'Le berceau de la haute montagne avec ses panoramas a couper le souffle.',
+                whySolo: 'Infrastructures exceptionnelles (téléphériques, bus) pour explorer la montagne facilement en solo.',
+                activities: ['Téléphérique de l'Aiguille du Midi', 'Randonnée au Lac Blanc', 'Train du Montenvers et Mer de Glace'],
+                budget: ['low', 'medium', 'high'],
+                transport: ['train', 'car'],
+                duration: ['short', 'medium'],
+                type: ['montagne', 'nature'],
+                image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80'
             },
             {
-                id: "edimbourg",
-                name: "Édimbourg et les Highlands",
-                region: "Écosse, Royaume-Uni",
-                flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
-                geo: "etranger",
-                env: ["ville", "campagne", "nature"],
-                transport: ["avion", "train"],
-                duration: ["medium", "long"],
-                budget: ["medium", "high"],
-                image: "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=800&q=80",
-                description: "Une ville médiévale et géorgienne entourée de collines et de paysages naturels d'altitude.",
-                whySolo: "Réseau de bus locaux très complet et possibilité de rejoindre des circuits guidés à la journée.",
-                activities: ["Ascension d'Arthur's Seat", "Visite du château d'Édimbourg", "Excursion vers les lochs"]
+                id: 'lyon',
+                name: 'Lyon',
+                region: 'Rhône',
+                country: 'France',
+                zone: 'france',
+                tagline: 'Histoire, traboules & culture',
+                desc: 'Capitale de la gastronomie et de l'art de vivre au fil du Rhône et de la Saône.',
+                whySolo: 'Ville d'une richesse culturelle folle, tout a fait accessible a pied et en métro.',
+                activities: ['Exploration des traboules du Vieux-Lyon', 'Vue panoramique depuis Fourvière', 'Pause au Parc de la Tête d'Or'],
+                budget: ['low', 'medium'],
+                transport: ['train', 'car'],
+                duration: ['short'],
+                type: ['ville'],
+                image: 'https://images.unsplash.com/photo-1527838832700-54595d2f4586?auto=format&fit=crop&w=800&q=80'
+            },
+
+            // EUROPE / PROCHE ÉTRANGER (15)
+            {
+                id: 'lisbonne',
+                name: 'Lisbonne et Sintra',
+                region: 'Portugal',
+                country: 'Portugal',
+                zone: 'europe',
+                tagline: 'Lumière, miradors & tramways',
+                desc: 'Une capitale vibrante bercée par l'océan Atlantique et le chant du Fado.',
+                whySolo: 'Très accueillante, sûre et chaleureuse pour les voyaguses seules.',
+                activities: ['Balade dans les ruelles de l'Alfama', 'Visite des palais de Sintra', 'Coucher de soleil depuis les miradors'],
+                budget: ['medium'],
+                transport: ['plane'],
+                duration: ['short', 'medium'],
+                type: ['ville', 'mer', 'mix'],
+                image: 'https://images.unsplash.com/photo-1509824227185-9c5a01ceba0d?auto=format&fit=crop&w=800&q=80'
             },
             {
-                id: "ubud",
-                name: "Ubud et Bali",
-                region: "Indonésie",
-                flag: "🇮🇩",
-                geo: "etranger",
-                env: ["nature", "campagne", "mer"],
-                transport: ["avion"],
-                duration: ["long", "maxi"],
-                budget: ["low", "medium"],
-                image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80",
-                description: "Un centre culturel entouré de rizières en terrasses et de villages artisanaux.",
-                whySolo: "Infrastructures adaptées aux séjours individuels, offre variée d'ateliers et de cours.",
-                activities: ["Balade dans les rizières", "Cours de cuisine ou artisanat", "Découverte des temples locaux"]
+                id: 'porto',
+                name: 'Porto et la vallée du Douro',
+                region: 'Portugal',
+                country: 'Portugal',
+                zone: 'europe',
+                tagline: 'Fleuve, ponts & charme authentique',
+                desc: 'Une ville a taille humaine accrochée aux rives escarpées du fleuve Douro.',
+                whySolo: 'Ultra simple a visiter a pied avec une vraie sensation de sécurité.',
+                activities: ['Croisière des 6 ponts sur le Douro', 'Visite des caves historiques', 'Flânerie dans le quartier de la Ribeira'],
+                budget: ['medium'],
+                transport: ['plane'],
+                duration: ['short'],
+                type: ['ville', 'mix'],
+                image: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=800&q=80'
             },
             {
-                id: "kyoto",
-                name: "Tokyo et Kyoto",
-                region: "Japon",
-                flag: "🇯🇵",
-                geo: "etranger",
-                env: ["ville", "nature", "mix"],
-                transport: ["avion"],
-                duration: ["long", "maxi"],
-                budget: ["high", "maxi"],
-                image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80",
-                description: "Un parcours entre mégapoles modernes et capitales historiques aux traditions préservées.",
-                whySolo: "Transports ferroviaires d'une précision absolue et services conçus pour les clients individuels.",
-                activities: ["Forêt de bambous d'Arashiyama", "Quartiers modernes de Tokyo", "Trajets en train à grande vitesse (Shinkansen)"]
+                id: 'copenhague',
+                name: 'Copenhague',
+                region: 'Danemark',
+                country: 'Danemark',
+                zone: 'europe',
+                tagline: 'Design, sécurité absolue & sérénité',
+                desc: 'La capitale nordique symbole de douceur de vivre et de design épuré.',
+                whySolo: 'Régulièrement classée parmi les villes les plus sûres et agréables au monde.',
+                activities: ['Balade a vélo a Nyhavn', 'Visite des jardins de Tivoli', 'Pause fika nordique au bord de l'eau'],
+                budget: ['low', 'medium', 'high'],
+                transport: ['plane'],
+                duration: ['short'],
+                type: ['ville'],
+                image: 'https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?auto=format&fit=crop&w=800&q=80'
             },
             {
-                id: "sevilla",
-                name: "Séville et l'Andalousie",
-                region: "Espagne",
-                flag: "🇪🇸",
-                geo: "etranger",
-                env: ["ville", "campagne"],
-                transport: ["avion", "train"],
-                duration: ["short", "medium"],
-                budget: ["low", "medium"],
-                image: "https://images.unsplash.com/photo-1559564484-e48b3e040ff4?auto=format&fit=crop&w=800&q=80",
-                description: "Une ville historique du sud de l'Espagne réputée pour son architecture mudéjare et ses ruelles piétonnes.",
-                whySolo: "Réseau de transports en commun efficace et centre-ville facile à parcourir à pied.",
-                activities: ["Visite du Palais de l'Alcazar", "Plaza de España", "Découverte de la gastronomie locale"]
+                id: 'edimbourg',
+                name: 'Édimbourg et les Highlands',
+                region: 'Écosse',
+                country: 'Royaume-Uni',
+                zone: 'europe',
+                tagline: 'Châteaux, légendes & nature sauvage',
+                desc: 'Une ville fascinante au pied de collines volcaniques, porte d'entrée des grands espaces scotchs.',
+                whySolo: 'Une population exceptionnellement accueillante et un sentiment de sécurité garanti.',
+                activities: ['Ascension d'Arthur's Seat', 'Exploration du château d'Édimbourg', 'Excursion d'une journée dans les Highlands'],
+                budget: ['medium', 'high'],
+                transport: ['plane'],
+                duration: ['short', 'medium'],
+                type: ['ville', 'nature', 'mix'],
+                image: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=800&q=80'
             },
             {
-                id: "bled",
-                name: "Ljubljana et le lac de Bled",
-                region: "Slovénie",
-                flag: "🇸🇮",
-                geo: "etranger",
-                env: ["nature", "campagne", "lac"],
-                transport: ["avion", "voiture", "train"],
-                duration: ["short", "medium"],
-                budget: ["low", "medium"],
-                image: "https://images.unsplash.com/photo-1509142098801-4672e1c667a4?auto=format&fit=crop&w=800&q=80",
-                description: "Une capitale à taille humaine connectée à des lacs et des parcs nationaux d'accès simple.",
-                whySolo: "Distance courte entre la capitale et les sites naturels, réseau de bus réguliers.",
-                activities: ["Promenade autour du lac de Bled", "Centre éco-responsable de Ljubljana", "Randonnée dans les gorges de Vintgar"]
+                id: 'seville',
+                name: 'Séville et l'Andalousie',
+                region: 'Espagne',
+                country: 'Espagne',
+                zone: 'europe',
+                tagline: 'Palais, orangers & douceur de vivre',
+                desc: 'La capitale andalouse reputée pour ses palais mudéjars et son ambiance solaire.',
+                whySolo: 'Ville piétonne et très sécurisante, idéale pour flâner seule en terrasse.',
+                activities: ['Visite du Real Alcázar', 'Emerveillement sur la Plaza de España', 'Spectacle intimiste de Flamenco'],
+                budget: ['medium'],
+                transport: ['plane'],
+                duration: ['short', 'medium'],
+                type: ['ville', 'mix'],
+                image: 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=800&q=80'
+            },
+            {
+                id: 'bled',
+                name: 'Ljubljana et le lac de Bled',
+                region: 'Slovénie',
+                country: 'Slovénie',
+                zone: 'europe',
+                tagline: 'Capitale verte & lac féerique',
+                desc: 'Un véritable écran de nature paisible au cœur de l'Europe centrale.',
+                whySolo: 'Pays extrêmement paisible et propre, liaisons tres faciles en bus.',
+                activities: ['Tour du lac de Bled a pied ou a vélo', 'Découverte du centre piéton de Ljubljana', 'Randonnée dans les gorges de Vintgar'],
+                budget: ['medium'],
+                transport: ['plane', 'car'],
+                duration: ['short', 'medium'],
+                type: ['lac', 'nature', 'mix'],
+                image: 'https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?auto=format&fit=crop&w=800&q=80'
+            },
+            {
+                id: 'rome',
+                name: 'Rome',
+                region: 'Italie',
+                country: 'Italie',
+                zone: 'europe',
+                tagline: 'Musée a ciel ouvert & dolce vita',
+                desc: 'Des millénaires d'histoire a chaque coin de rue baignés de soleil.',
+                whySolo: 'L'impression de vivre un film en déambulant en toute liberté.',
+                activities: ['Visite du Colisée et du Forum', 'Jet de pièce dans la Fontaine de Trevi', 'Flânerie dans le quartier de Trastevere'],
+                budget: ['medium', 'high'],
+                transport: ['plane'],
+                duration: ['short'],
+                type: ['ville'],
+                image: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=800&q=80'
+            },
+            {
+                id: 'barcelone',
+                name: 'Barcelone',
+                region: 'Espagne',
+                country: 'Espagne',
+                zone: 'europe',
+                tagline: 'Mer, Gaudí & énergie méditerranéenne',
+                desc: 'L'alliance unique d'une architecture flamboyante et de la mer Méditerranée.',
+                whySolo: 'Une energie communicative et une grande facilite de transport.',
+                activities: ['Émerveillement a la Sagrada Família', 'Flânerie au Parc Güell', 'Détente sur la plage du quartier de la Barceloneta'],
+                budget: ['medium'],
+                transport: ['plane', 'train'],
+                duration: ['short'],
+                type: ['ville', 'mer', 'mix'],
+                image: 'https://images.unsplash.com/photo-1583422409516-2895a771deda?auto=format&fit=crop&w=800&q=80'
+            },
+            {
+                id: 'stockholm',
+                name: 'Stockholm et son archipel',
+                region: 'Suède',
+                country: 'Suède',
+                zone: 'europe',
+                tagline: 'Eau, îles & sérénité scandinave',
+                desc: 'Une capitale bâtie sur 14 îles reliées par des ponts élégants.',
+                whySolo: 'Cadre de vie paisible, sécurité absolue et organisation exemplaire.',
+                activities: ['Flânerie dans les ruelles de Gamla Stan', 'Excursion en bateau dans l'archipel', 'Visite du musée Vasa'],
+                budget: ['medium', 'high'],
+                transport: ['plane'],
+                duration: ['short', 'medium'],
+                type: ['ville', 'nature', 'mix'],
+                image: 'https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=800&q=80'
+            },
+            {
+                id: 'prague',
+                name: 'Prague',
+                region: 'Tchéquie',
+                country: 'Tchéquie',
+                zone: 'europe',
+                tagline: 'Histoire gothique & charme d'Europe centrale',
+                desc: 'La ville aux cent clochers offre un decor de conte de fées.',
+                whySolo: 'Ultra accessible a pied et très abordable financièrement.',
+                activities: ['Traversée du Pont Charles au lever du jour', 'Visite du Château de Prague', 'Découverte de l'Horloge astronomique'],
+                budget: ['medium'],
+                transport: ['plane'],
+                duration: ['short'],
+                type: ['ville'],
+                image: 'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=800&q=80'
+            },
+            {
+                id: 'marrakech',
+                name: 'Marrakech et la vallée de l'Ourika',
+                region: 'Maroc',
+                country: 'Maroc',
+                zone: 'europe',
+                tagline: 'Couleurs, riads & dépaysement garanti',
+                desc: 'Une cité impériale envoûtante au pied des montagnes de l'Atlas.',
+                whySolo: 'L'hospitalité marocaine et l'apaisement au sein des magnifiques riads.',
+                activities: ['Détente au Jardin Majorelle', 'Exploration de la médina', 'Journée dans la vallée de l'Ourika'],
+                budget: ['low', 'medium'],
+                transport: ['plane'],
+                duration: ['short', 'medium'],
+                type: ['ville', 'mix'],
+                image: 'https://images.unsplash.com/photo-1597212618440-806262de4f6b?auto=format&fit=crop&w=800&q=80'
+            },
+            {
+                id: 'pouilles',
+                name: 'Les Pouilles',
+                region: 'Italie',
+                country: 'Italie',
+                zone: 'europe',
+                tagline: 'Trulli, falaises & mer turquoise',
+                desc: 'Le talon de la botte italienne offre des côtes spectaculaires et des villages blancs.',
+                whySolo: 'Atmosphère authentique, accueil chaleureux et déplacements simples.',
+                activities: ['Baignade sous les falaises de Polignano a Mare', 'Découverte des trulli d'Alberobello', 'Flânerie dans le centre de Lecce'],
+                budget: ['medium'],
+                transport: ['plane'],
+                duration: ['short', 'medium'],
+                type: ['mer', 'campagne', 'mix'],
+                image: 'https://images.unsplash.com/photo-1541370976299-4d24ebbc10f7?auto=format&fit=crop&w=800&q=80'
+            },
+            {
+                id: 'budapest',
+                name: 'Budapest',
+                region: 'Hongrie',
+                country: 'Hongrie',
+                zone: 'europe',
+                tagline: 'Bains thermaux & Parlement majestueux',
+                desc: 'La perle du Danube séparée entre Buda l'historique et Pest la vivante.',
+                whySolo: 'Bains thermaux exceptionnels pour se détendre en toute sécurité.',
+                activities: ['Relaxation aux Bains Széchenyi', 'Croisière du soir sur le Danube', 'Visite du Parlement hongrois'],
+                budget: ['low', 'medium'],
+                transport: ['plane'],
+                duration: ['short'],
+                type: ['ville'],
+                image: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=800&q=80'
+            },
+            {
+                id: 'londres',
+                name: 'Londres',
+                region: 'Royaume-Uni',
+                country: 'Royaume-Uni',
+                zone: 'europe',
+                tagline: 'Musées, parcs & énergie cosmopolite',
+                desc: 'La grande métropole britannique mêlant traditions royales et modernité.',
+                whySolo: 'Musées nationaux gratuits et transports en commun ultra intuitifs.',
+                activities: ['Visite du British Museum', 'Flânerie dans Hyde Park', 'Découverte des marchés de Notting Hill'],
+                budget: ['medium', 'high'],
+                transport: ['train', 'plane'],
+                duration: ['short'],
+                type: ['ville'],
+                image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=800&q=80'
+            },
+            {
+                id: 'madrid',
+                name: 'Madrid',
+                region: 'Espagne',
+                country: 'Espagne',
+                zone: 'europe',
+                tagline: 'Art, parcs & convivialité espagnole',
+                desc: 'Une capitale élégante et vivante, renommée pour ses grands musées.',
+                whySolo: 'Très sécurisante et animée a toute heure pour ne jamais se sentir seule.',
+                activities: ['Balade en barque au Parc du Retiro', 'Visite du Musée du Prado', 'Dégustation de tapas au marché San Miguel'],
+                budget: ['medium'],
+                transport: ['plane'],
+                duration: ['short'],
+                type: ['ville'],
+                image: 'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=800&q=80'
+            },
+
+            // GRAND LARGE / INTERNATIONAL (10)
+            {
+                id: 'montreal',
+                name: 'Montréal et Québec',
+                region: 'Canada',
+                country: 'Canada',
+                zone: 'world',
+                tagline: 'Grands espaces & convivialité québécoise',
+                desc: 'Un mélange unique de charme européen et de grands espaces nord-américains.',
+                whySolo: 'La sécurité est absolue et la proximité francophone simplifie tout.',
+                activities: ['Vue sur la ville depuis le Mont Royal', 'Flânerie dans le Vieux-Québec', 'Excursion nature au Parc de la Mauricie'],
+                budget: ['high'],
+                transport: ['plane'],
+                duration: ['medium', 'long'],
+                type: ['ville', 'nature', 'mix'],
+                image: 'https://images.unsplash.com/photo-1519178614-68693b05f24f?auto=format&fit=crop&w=800&q=80'
+            },
+            {
+                id: 'ubud',
+                name: 'Ubud et Bali',
+                region: 'Indonésie',
+                country: 'Indonésie',
+                zone: 'world',
+                tagline: 'Rizières, sérénité & spiritualité',
+                desc: 'Le cœur culturel de Bali entouré de rizières verdoyantes.',
+                whySolo: 'Rassemble une immense communauté de voyaguses solo internationales.',
+                activities: ['Séance de yoga face aux rizières', 'Découverte des temples d'Ubud', 'Détente et soins traditionnels'],
+                budget: ['medium'],
+                transport: ['plane'],
+                duration: ['medium', 'long'],
+                type: ['nature', 'campagne', 'mix'],
+                image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80'
+            },
+            {
+                id: 'tokyo',
+                name: 'Tokyo et Kyoto',
+                region: 'Japon',
+                country: 'Japon',
+                zone: 'world',
+                tagline: 'Traditions, sécurité n°1 & modernité',
+                desc: 'Le pays du soleil levant offre un contraste fascinant entre futurisme et sanctuaires.',
+                whySolo: 'Considéré comme le pays le plus sûr de la planète pour une femme seule.',
+                activities: ['Traversée du sanctuaire Fushimi Inari', 'Immersion dans les quartiers de Tokyo', 'Dégustation dans les marchés traditionnels'],
+                budget: ['high'],
+                transport: ['plane'],
+                duration: ['medium', 'long'],
+                type: ['ville', 'mix'],
+                image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80'
+            },
+            {
+                id: 'bangkok',
+                name: 'Bangkok',
+                region: 'Thaïlande',
+                country: 'Thaïlande',
+                zone: 'world',
+                tagline: 'Temples dorés, marchés & énergie asiatique',
+                desc: 'Une métropole palpitante aux mille facettes bordée par le fleuve Chao Phraya.',
+                whySolo: 'Accueil légendaire des locaux et facilité pour se déplacer.',
+                activities: ['Visite du Grand Palais dorée', 'Balade en bateau long-tail sur les canaux', 'Exploration du marché du soir'],
+                budget: ['medium', 'high'],
+                transport: ['plane'],
+                duration: ['medium', 'long'],
+                type: ['ville'],
+                image: 'https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=800&q=80'
+            },
+            {
+                id: 'thailande-iles',
+                name: 'Les îles thaïlandaises (Koh Samui / Yao Noi)',
+                region: 'Thaïlande',
+                country: 'Thaïlande',
+                zone: 'world',
+                tagline: 'Plages paradisiaques & falaises karstiques',
+                desc: 'Des décors de carte postale bordés par des eaux turquoises.',
+                whySolo: 'Infrastructure touristique ultra développée et très bien encadrée.',
+                activities: ['Excursion en bateau dans le parc d'Ang Thong', 'Plongée ou masque-tuba', 'Coucher de soleil sur le sable fin'],
+                budget: ['medium', 'high'],
+                transport: ['plane'],
+                duration: ['medium', 'long'],
+                type: ['mer', 'nature'],
+                image: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=800&q=80'
+            },
+            {
+                id: 'vietnam',
+                name: 'Le Vietnam (Hanoi & Baie d'Halong)',
+                region: 'Vietnam',
+                country: 'Vietnam',
+                zone: 'world',
+                tagline: 'Paysages poétiques & paysages légendaires',
+                desc: 'Une immersion entre montagnes verdoyantes, baie mythique et cités historiques.',
+                whySolo: 'Pays paisible avec des locaux bienveillants et des trajets simples.',
+                activities: ['Croisière d'une nuit dans la baie d'Halong', 'Flânerie autour du lac Hoan Kiem', 'Visite du village de Hoi An'],
+                budget: ['medium', 'high'],
+                transport: ['plane'],
+                duration: ['medium', 'long'],
+                type: ['nature', 'mix'],
+                image: 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=80'
+            },
+            {
+                id: 'malaisie',
+                name: 'La Malaisie & Kuala Lumpur',
+                region: 'Malaisie',
+                country: 'Malaisie',
+                zone: 'world',
+                tagline: 'Modernité, forêts anciennes & melting-pot',
+                desc: 'Un mélange fascinant de grattes-ciel modernes et de nature luxuriante.',
+                whySolo: 'Excellente maîtrise de l'anglais par les locaux et sécurité exemplaire.',
+                activities: ['Vue depuis les tours Petronas', 'Randonnée dans la jungle de Taman Negara', 'Découverte des grottes de Batu'],
+                budget: ['medium', 'high'],
+                transport: ['plane'],
+                duration: ['medium', 'long'],
+                type: ['ville', 'nature', 'mix'],
+                image: 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80'
+            },
+            {
+                id: 'seoul',
+                name: 'Séoul',
+                region: 'Corée du Sud',
+                country: 'Corée du Sud',
+                zone: 'world',
+                tagline: 'Palais royaux, K-Culture & hyper-sécurité',
+                desc: 'La capitale sud-coréenne dynamique mêlant traditions et hautes technologies.',
+                whySolo: 'Un niveau de sécurité exceptionnel dans la rue a toute heure.',
+                activities: ['Visite du palais Gyeongbokgung en tenue traditionnelle', 'Flânerie dans le quartier de Bukchon', 'Vue nocturne depuis la N Seoul Tower'],
+                budget: ['high'],
+                transport: ['plane'],
+                duration: ['medium', 'long'],
+                type: ['ville', 'mix'],
+                image: 'https://images.unsplash.com/photo-1538485399081-7191377e8241?auto=format&fit=crop&w=800&q=80'
+            },
+            {
+                id: 'costa-rica',
+                name: 'Le Costa Rica',
+                region: 'Amérique Centrale',
+                country: 'Costa Rica',
+                zone: 'world',
+                tagline: 'Forêts tropicales & philosophie "Pura Vida"',
+                desc: 'Le paradis mondial de la biodiversité et de l'éco-tourisme.',
+                whySolo: 'Pays pacifique et pionnier du tourisme vert en toute quiétude.',
+                activities: ['Observation des paresseux et toucans', 'Passerelles suspendues de Monteverde', 'Baignade dans les sources chaudes de l'Arenal'],
+                budget: ['high'],
+                transport: ['plane'],
+                duration: ['medium', 'long'],
+                type: ['nature'],
+                image: 'https://images.unsplash.com/photo-1518259102261-b40117eabbc9?auto=format&fit=crop&w=800&q=80'
+            },
+            {
+                id: 'new-york',
+                name: 'New York',
+                region: 'États-Unis',
+                country: 'États-Unis',
+                zone: 'world',
+                tagline: 'Énergie mythique, musées & gratte-ciels',
+                desc: 'La ville qui ne dort jamais et où l'on ne s'ennuie jamais.',
+                whySolo: 'On se sent portée par l'énergie constante de la ville.',
+                activities: ['Balade guidée dans Central Park', 'Traversée du pont de Brooklyn', 'Coucher de soleil depuis le Top of the Rock'],
+                budget: ['medium', 'high'],
+                transport: ['plane'],
+                duration: ['medium', 'long'],
+                type: ['ville'],
+                image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=800&q=80'
             }
         ];
 
-        // Liste des 5 questions
+        // QUESTIONS DU QUIZZ
         const QUESTIONS = [
             {
-                id: "geo",
-                title: "Où est-ce que tu as envie d'aller ?",
-                subtitle: "Sélectionne la zone qui te fait le plus vibrer pour ce premier départ.",
+                id: 'zone',
+                title: 'Où aimerais-tu vous envoler pour cette aventure ?',
+                subtitle: 'Sélectionne la zone géographique qui t'attire',
                 options: [
-                    { label: "En France", sub: "S'évader tout en restant dans l'hexagone", value: "france", icon: "fa-map-pin" },
-                    { label: "À l'étranger", sub: "Changer complètement d'air et de culture", value: "etranger", icon: "fa-plane-departure" },
-                    { label: "Peu importe", sub: "Je suis totalement ouverte aux deux !", value: "both", icon: "fa-compass" }
+                    { value: 'france', label: 'En France', desc: 'Ressourcement garanti sans quitter l'hexagone' },
+                    { value: 'europe', label: 'En Europe & Proche Étranger', desc: 'Dépaysement assuré à quelques heures de trajet' },
+                    { value: 'world', label: 'Grand Large / International', desc: 'Le grand saut vers des horizons plus lointains' },
+                    { value: 'any', label: 'Peu importe, je suis curieuse !', desc: 'Laisse l'algorithme me surprendre' }
                 ]
             },
             {
-                id: "env",
-                title: "C'est quoi ton ambiance idéale ?",
-                subtitle: "Choisis le décor qui te donnera le sourire dès le matin.",
+                id: 'duration',
+                title: 'Combien de temps peux-tu accorder à ce séjour ?',
+                subtitle: 'Choisis la durée idéale de ton escapade',
                 options: [
-                    { label: "Ville et culture", sub: "Cafés sympa, musées et flâneries urbaines", value: "ville", icon: "fa-city" },
-                    { label: "Nature et campagne", sub: "Grands espaces, villages et grand air", value: "campagne", icon: "fa-tree" },
-                    { label: "Mer et littoral", sub: "Brise marine, plages, lacs et balades", value: "mer", icon: "fa-water" },
-                    { label: "Un joli mix", sub: "Un petit mélange de plusieurs décors", value: "mix", icon: "fa-icons" }
+                    { value: 'short', label: 'Un week-end prolongé (2 à 4 jours)', desc: 'Parfait pour faire une pause sans trop s'éloigner' },
+                    { value: 'medium', label: 'Une belle semaine (5 à 9 jours)', desc: 'Le bon équilibre pour explorer sans se presser' },
+                    { value: 'long', label: 'Deux semaines ou plus', desc: 'L'immersion totale pour déconnecter' }
                 ]
             },
             {
-                id: "duration",
-                title: "Combien de temps tu souhaites partir ?",
-                subtitle: "Choisis la durée qui te rassure et te convient.",
+                id: 'transport',
+                title: 'Quel mode de transport préfères-tu utiliser ?',
+                subtitle: 'Ta façon privilégiée de voyager',
                 options: [
-                    { label: "Court séjour (2 à 4 jours)", sub: "Un petit week-end prolongé pour tester", value: "short", icon: "fa-calendar-day" },
-                    { label: "Une semaine (7 à 10 jours)", sub: "Une belle pause pour bien déconnecter", value: "medium", icon: "fa-calendar-week" },
-                    { label: "Deux semaines", sub: "Un vrai voyage pour prendre ton temps", value: "long", icon: "fa-calendar-alt" },
-                    { label: "Trois semaines ou plus", sub: "La grande aventure en mode immersion", value: "maxi", icon: "fa-globe" }
+                    { value: 'train', label: 'Le Train', desc: 'Écologique, confortable et central' },
+                    { value: 'plane', label: 'L'Avion', desc: 'Idéal pour aller plus loin ou gagner du temps' },
+                    { value: 'car', label: 'La Voiture', desc: 'Liberté totale sur la route' }
                 ]
             },
             {
-                id: "transport",
-                title: "Comment tu imagines tes déplacements ?",
-                subtitle: "Le moyen de transport avec lequel tu te sens le plus à l'aise.",
+                id: 'type',
+                title: 'Quel cadre te ressource le plus ?',
+                subtitle: 'L'ambiance dont tu as besoin en ce moment',
                 options: [
-                    { label: "En train", sub: "Voyager sereinement au fil des rails", value: "train", icon: "fa-train" },
-                    { label: "En avion", sub: "S'envoler vers de nouveaux horizons", value: "avion", icon: "fa-plane" },
-                    { label: "En voiture", sub: "S'offrir une liberté totale sur la route", value: "voiture", icon: "fa-car" },
-                    { label: "Peu importe", sub: "Je m'adapte très facilement", value: "all", icon: "fa-route" }
+                    { value: 'ville', label: 'Culture & Villes de charme', desc: 'Musées, flânerie et terrasses' },
+                    { value: 'mer', label: 'Mer & Côtes maritimes', desc: 'Air iodé, plages et son des vagues' },
+                    { value: 'nature', label: 'Grands Espaces & Nature', desc: 'Randonnée, verdure et grand air' },
+                    { value: 'lac', label: 'Lacs & Montagnes', desc: 'Sérénité au bord de l'eau ou sommets' },
+                    { value: 'campagne', label: 'Campagne & Villages', desc: 'Douceur de vivre et authenticité' }
                 ]
             },
             {
-                id: "budget",
-                title: "Quel est ton budget estimé ?",
-                subtitle: "En comptant le transport, le logement et tes petits plaisirs sur place.",
+                id: 'budget',
+                title: 'Quel est ton budget approximatif pour ce voyage ?',
+                subtitle: 'Hors dépenses exceptionnelles',
                 options: [
-                    { label: "Moins de 500 €", sub: "Budget doux et astucieux", value: "low", icon: "fa-piggy-bank" },
-                    { label: "500 € à 1 200 €", sub: "Budget équilibré et confortable", value: "medium", icon: "fa-wallet" },
-                    { label: "1 200 € à 2 500 €", sub: "Budget plaisir pour se faire plaisir", value: "high", icon: "fa-credit-card" },
-                    { label: "Plus de 2 500 €", sub: "Grand voyage sans se priver", value: "maxi", icon: "fa-gem" }
+                    { value: 'low', label: 'Budget Doux', desc: 'Solutions économiques et astucieuses' },
+                    { value: 'medium', label: 'Budget Modéré', desc: 'Le juste milieu entre confort et se faire plaisir' },
+                    { value: 'high', label: 'Budget Confort / Sans compter', desc: 'Expérience haut de gamme et sérénité totale' }
                 ]
             }
         ];
 
+        // APPLICATION PRINCIPALE
         function App() {
-            const [currentStep, setCurrentStep] = useState(0); // 0: intro, 1-5: questions, 6: résultats
+            const [currentQuestion, setCurrentQuestion] = useState(0);
             const [answers, setAnswers] = useState({});
+            const [results, setResults] = useState(null);
 
-            const handleSelectOption = (questionId, value) => {
-                setAnswers(prev => ({ ...prev, [questionId]: value }));
-            };
+            const handleSelectOption = (value) => {
+                const currentQuestionId = QUESTIONS[currentQuestion].id;
+                const updatedAnswers = { ...answers, [currentQuestionId]: value };
+                setAnswers(updatedAnswers);
 
-            const handleNext = () => {
-                setCurrentStep(prev => prev + 1);
-            };
-
-            const handlePrev = () => {
-                if (currentStep > 0) {
-                    setCurrentStep(prev => prev - 1);
+                if (currentQuestion < QUESTIONS.length - 1) {
+                    setCurrentQuestion(currentQuestion + 1);
+                } else {
+                    calculateResults(updatedAnswers);
                 }
             };
 
-            // Calcul des 5 destinations les plus pertinentes
-            const calculateTopDestinations = () => {
-                const userGeo = answers.geo || "both";
-                const userEnv = answers.env || "mix";
-                const userDuration = answers.duration || "medium";
-                const userTransport = answers.transport || "all";
-                const userBudget = answers.budget || "medium";
+            const calculateResults = (finalAnswers) => {
+                // FILTRAGE STRICT DE ZONE
+                let pool = [...DESTINATIONS];
+                if (finalAnswers.zone && finalAnswers.zone !== 'any') {
+                    pool = pool.filter(d => d.zone === finalAnswers.zone);
+                }
 
-                const scored = DESTINATIONS_DB.map(dest => {
-                    let points = 0;
+                // CALCUL DES SCORES DE COMPATIBILITÉ
+                const scoredPool = pool.map(dest => {
+                    let score = 0;
 
-                    if (userGeo === "both" || dest.geo === userGeo) points += 30; else points += 10;
-                    if (userEnv === "mix" || dest.env.includes(userEnv) || dest.env.includes("mix")) points += 25; else points += 10;
-                    if (userTransport === "all" || dest.transport.includes(userTransport)) points += 15; else points += 5;
-                    if (dest.duration.includes(userDuration)) points += 15; else points += 5;
-                    if (dest.budget.includes(userBudget)) points += 15; else points += 5;
+                    // Durée (30 pts)
+                    if (dest.duration.includes(finalAnswers.duration)) score += 30;
 
-                    return { ...dest, scorePercent: points };
+                    // Transport (25 pts)
+                    if (dest.transport.includes(finalAnswers.transport)) score += 25;
+
+                    // Type/Ambiance (25 pts)
+                    if (dest.type.includes(finalAnswers.type) || dest.type.includes('mix')) score += 25;
+
+                    // Budget avec règle ascendante (20 pts)
+                    if (finalAnswers.budget === 'high') {
+                        // Un budget élevé est compatible avec TOUS les budgets (low, medium, high)
+                        score += 20;
+                    } else if (finalAnswers.budget === 'medium') {
+                        // Un budget medium match avec medium et low
+                        if (dest.budget.includes('medium') || dest.budget.includes('low')) score += 20;
+                    } else {
+                        // Budget low match avec low
+                        if (dest.budget.includes('low')) score += 20;
+                    }
+
+                    return { ...dest, score };
                 });
 
-                scored.sort((a, b) => b.scorePercent - a.scorePercent);
-                return scored.slice(0, 5);
+                // Tri par score décroissant
+                scoredPool.sort((a, b) => b.score - a.score);
+
+                // Application de la règle d'unicité par pays (max 1 destination par pays dans le Top 5)
+                const top5 = [];
+                const usedCountries = new Set();
+
+                for (const dest of scoredPool) {
+                    if (!usedCountries.has(dest.country)) {
+                        top5.push(dest);
+                        usedCountries.add(dest.country);
+                    }
+                    if (top5.length === 5) break;
+                }
+
+                setResults(top5);
             };
 
-            const isQuizFinished = currentStep > QUESTIONS.length;
-            const top5 = isQuizFinished ? calculateTopDestinations() : [];
+            const resetQuiz = () => {
+                setCurrentQuestion(0);
+                setAnswers({});
+                setResults(null);
+            };
 
             return (
-                <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-brand-light transition-all">
-                    
-                    {/* Header avec Logo à gauche et Titre */}
-                    <header className="bg-brand-primary text-white p-6 sm:p-8 relative overflow-hidden">
-                        <div className="relative z-10 flex items-center gap-4 sm:gap-6 text-left">
-                            
-                            {/* Logo Smiley Blanc sur la gauche */}
-                            <div className="w-14 h-14 sm:w-16 sm:h-16 flex-shrink-0 flex items-center justify-center">
-                                <svg className="w-full h-full" viewBox="0 0 100 100" fill="none">
-                                    <circle cx="50" cy="50" r="42" stroke="#ffffff" strokeWidth="6"/>
-                                    <circle cx="35" cy="40" r="5" fill="#ffffff"/>
-                                    <circle cx="65" cy="40" r="5" fill="#ffffff"/>
-                                    <path d="M 27 57 Q 50 79 73 57" stroke="#ffffff" strokeWidth="6" strokeLinecap="round" fill="none"/>
+                <div className="min-h-screen flex flex-col justify-between">
+                    {/* Header avec Logo */}
+                    <header className="bg-brand-blue text-white py-4 px-6 shadow-md">
+                        <div className="max-w-4xl mx-auto flex items-center justify-between">
+                            <div className="flex items-center space-x-3">
+                                {/* SVG Logo Smiley Blanc */}
+                                <svg className="w-9 h-9 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                                    <line x1="9" y1="9" x2="9.01" y2="9" strokeWidth="3" />
+                                    <line x1="15" y1="9" x2="15.01" y2="9" strokeWidth="3" />
                                 </svg>
+                                <div>
+                                    <h1 className="font-extrabold text-xl tracking-tight leading-none">SOLO & SEREINE</h1>
+                                    <p className="text-xs text-brand-light font-medium mt-0.5">Guide de voyage solo au féminin</p>
+                                </div>
                             </div>
-
-                            <div>
-                                <h1 className="text-2xl sm:text-4xl font-londrina tracking-wide leading-tight">
-                                    Trouve ta destination idéale
-                                </h1>
-                                <p className="text-blue-100 text-xs sm:text-sm mt-1 max-w-xl">
-                                    Un quiz bienveillant pour t'aider à dénicher le coin parfait pour ton tout premier voyage solo !
-                                </p>
-                            </div>
+                            {results && (
+                                <button onClick={resetQuiz} className="text-xs bg-white/20 hover:bg-white/30 text-white font-semibold py-1.5 px-3 rounded-full transition">
+                                    Recommencer
+                                </button>
+                            )}
                         </div>
                     </header>
 
-                    {/* Étape 0 : ACCUEIL */}
-                    {currentStep === 0 && (
-                        <div className="p-8 sm:p-12 text-center max-w-2xl mx-auto">
-                            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">
-                                Prête à sauter le pas ?
-                            </h2>
-                            <p className="text-gray-600 mb-8 leading-relaxed text-base sm:text-lg">
-                                Réponds à ces 5 petites questions simples. On fait le point ensemble sur tes envies pour te révéler 5 destinations au top, ultra adaptées pour t'élancer en toute sérénité.
-                            </p>
-                            <button
-                                onClick={() => setCurrentStep(1)}
-                                className="w-full sm:w-auto px-10 py-4 rounded-2xl font-bold text-lg btn-brand shadow-lg"
-                            >
-                                C'est parti ! <i className="fa-solid fa-arrow-right ml-2"></i>
-                            </button>
-                        </div>
-                    )}
-
-                    {/* Étapes 1 à 5 : QUESTIONS */}
-                    {currentStep > 0 && currentStep <= QUESTIONS.length && (
-                        <div className="p-6 sm:p-10">
-                            
-                            {/* Barre de progression */}
-                            <div className="mb-8">
-                                <div className="flex justify-between items-center mb-2">
-                                    <span className="text-xs font-bold text-brand-primary uppercase tracking-wider">
-                                        Question {currentStep} sur {QUESTIONS.length}
-                                    </span>
-                                    <span className="text-xs font-semibold text-gray-400">
-                                        {Math.round((currentStep / QUESTIONS.length) * 100)} % complété
-                                    </span>
+                    {/* Contenu principal */}
+                    <main className="max-w-3xl mx-auto px-4 py-8 flex-grow w-full">
+                        {!results ? (
+                            <div>
+                                {/* Barre de progression */}
+                                <div className="mb-8">
+                                    <div className="flex justify-between text-xs text-slate-500 font-semibold mb-2">
+                                        <span>Question {currentQuestion + 1} sur {QUESTIONS.length}</span>
+                                        <span>{Math.round(((currentQuestion + 1) / QUESTIONS.length) * 100)}%</span>
+                                    </div>
+                                    <div className="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
+                                        <div 
+                                            className="bg-brand-blue h-full transition-all duration-300 ease-out" 
+                                            style={{ width: `${((currentQuestion + 1) / QUESTIONS.length) * 100}%` }}
+                                        ></div>
+                                    </div>
                                 </div>
-                                <div className="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
-                                    <div 
-                                        className="h-full bg-brand-primary transition-all duration-300"
-                                        style={{ width: `${(currentStep / QUESTIONS.length) * 100}%` }}
-                                    ></div>
+
+                                {/* Question en cours */}
+                                <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-100">
+                                    <h2 className="text-2xl font-bold text-slate-800 mb-2">
+                                        {QUESTIONS[currentQuestion].title}
+                                    </h2>
+                                    <p className="text-slate-500 text-sm mb-6">
+                                        {QUESTIONS[currentQuestion].subtitle}
+                                    </p>
+
+                                    <div className="space-y-3">
+                                        {QUESTIONS[currentQuestion].options.map((opt) => (
+                                            <button
+                                                key={opt.value}
+                                                onClick={() => handleSelectOption(opt.value)}
+                                                className="w-full text-left p-4 rounded-xl border border-slate-200 hover:border-brand-blue hover:bg-brand-light/20 transition duration-150 group flex flex-col justify-center"
+                                            >
+                                                <span className="font-semibold text-slate-800 group-hover:text-brand-blue text-base">
+                                                    {opt.label}
+                                                </span>
+                                                <span className="text-xs text-slate-500 mt-1">
+                                                    {opt.desc}
+                                                </span>
+                                            </button>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
+                        ) : (
+                            /* Résultats */
+                            <div>
+                                <div className="text-center mb-8">
+                                    <h2 className="text-3xl font-extrabold text-slate-800 mb-2">
+                                        Tes 5 destinations coups de cœur ! 🎉
+                                    </h2>
+                                    <p className="text-slate-600 text-sm max-w-lg mx-auto">
+                                        Sur la base de tes réponses, voici les destinations les plus sûres, inspirantes et adaptées pour ton aventure solo.
+                                    </p>
+                                </div>
 
-                            {/* Titre de la question */}
-                            <div className="mb-8">
-                                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-                                    {QUESTIONS[currentStep - 1].title}
-                                </h2>
-                                <p className="text-gray-500 text-sm sm:text-base">
-                                    {QUESTIONS[currentStep - 1].subtitle}
-                                </p>
-                            </div>
-
-                            {/* Grille des options */}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                                {QUESTIONS[currentStep - 1].options.map((opt, idx) => {
-                                    const isSelected = answers[QUESTIONS[currentStep - 1].id] === opt.value;
-                                    return (
-                                        <div
-                                            key={idx}
-                                            onClick={() => handleSelectOption(QUESTIONS[currentStep - 1].id, opt.value)}
-                                            className={`option-card p-5 rounded-2xl cursor-pointer flex items-start gap-4 ${isSelected ? 'selected' : ''}`}
-                                        >
-                                            <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0 ${isSelected ? 'bg-brand-primary text-white' : 'bg-brand-light text-brand-primary'}`}>
-                                                <i className={`fa-solid ${opt.icon}`}></i>
-                                            </div>
-                                            <div>
-                                                <h3 className="font-bold text-gray-800 text-base mb-1">{opt.label}</h3>
-                                                <p className="text-xs text-gray-500 leading-snug">{opt.sub}</p>
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-
-                            {/* Boutons de navigation */}
-                            <div className="flex justify-between items-center pt-4 border-t border-gray-100">
-                                <button
-                                    onClick={handlePrev}
-                                    className="px-6 py-2.5 rounded-xl text-gray-600 font-semibold hover:bg-gray-100 transition"
-                                >
-                                    <i className="fa-solid fa-arrow-left mr-2"></i> Retour
-                                </button>
-                                
-                                <button
-                                    onClick={handleNext}
-                                    disabled={!answers[QUESTIONS[currentStep - 1].id]}
-                                    className={`px-8 py-3 rounded-xl font-bold transition flex items-center gap-2 ${answers[QUESTIONS[currentStep - 1].id] ? 'btn-brand' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}
-                                >
-                                    {currentStep === QUESTIONS.length ? 'Découvrir mes destinations' : 'Suivant'} <i className="fa-solid fa-arrow-right"></i>
-                                </button>
-                            </div>
-
-                        </div>
-                    )}
-
-                    {/* Étape 6 : RÉSULTATS */}
-                    {isQuizFinished && (
-                        <div className="p-6 sm:p-10">
-                            <div className="text-center max-w-2xl mx-auto mb-10">
-                                <h2 className="text-3xl sm:text-4xl font-londrina text-brand-primary tracking-wide mb-2">
-                                    Tes 5 destinations coups de cœur !
-                                </h2>
-                                <p className="text-gray-600">
-                                    Voici les pépites qui correspondent le mieux à ton profil pour un premier départ en toute sérénité :
-                                </p>
-                            </div>
-
-                            {/* Liste des 5 destinations */}
-                            <div className="space-y-6 mb-10">
-                                {top5.map((dest, index) => (
-                                    <div 
-                                        key={dest.id}
-                                        className="border-2 border-brand-light bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col md:flex-row"
-                                    >
-                                        {/* Photo */}
-                                        <div className="md:w-1/3 relative h-48 md:h-auto min-h-[200px]">
-                                            <img 
-                                                src={dest.image} 
-                                                alt={dest.name} 
-                                                className="w-full h-full object-cover"
-                                            />
-                                            <div className="absolute top-3 left-3 bg-brand-primary text-white text-xs font-bold px-3 py-1 rounded-full shadow">
-                                                Coup de cœur #{index + 1}
-                                            </div>
-                                        </div>
-
-                                        {/* Description */}
-                                        <div className="p-6 md:w-2/3 flex flex-col justify-between">
-                                            <div>
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <span className="text-xs font-bold uppercase tracking-wider text-brand-primary">
-                                                        {dest.flag} {dest.region}
-                                                    </span>
+                                <div className="space-y-6">
+                                    {results.map((item, idx) => (
+                                        <div key={item.id} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 flex flex-col md:flex-row">
+                                            {/* Visuel */}
+                                            <div className="md:w-2/5 relative min-h-[200px] bg-slate-100">
+                                                <img 
+                                                    src={item.image} 
+                                                    alt={item.name} 
+                                                    className="w-full h-full object-cover absolute inset-0"
+                                                    onError={(e) => {
+                                                        e.target.onerror = null; 
+                                                        e.target.src='https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80'
+                                                    }}
+                                                />
+                                                <div className="absolute top-3 left-3 bg-brand-blue text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+                                                    Coup de cœur #{idx + 1}
                                                 </div>
+                                            </div>
 
-                                                <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                                                    {dest.name}
-                                                </h3>
-
-                                                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                                                    {dest.description}
-                                                </p>
-
-                                                {/* Point d'intérêt solo */}
-                                                <div className="bg-blue-50/70 rounded-xl p-3 mb-4 border border-blue-100">
-                                                    <h4 className="text-xs font-bold text-brand-primary uppercase tracking-wider mb-1">
-                                                        Pourquoi c'est top pour voyager solo :
-                                                    </h4>
-                                                    <p className="text-xs text-gray-700">
-                                                        {dest.whySolo}
-                                                    </p>
-                                                </div>
-
-                                                {/* Activités */}
+                                            {/* Détails */}
+                                            <div className="p-6 md:w-3/5 flex flex-col justify-between">
                                                 <div>
-                                                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
-                                                        Ce que tu vas adorer faire :
-                                                    </h4>
-                                                    <div className="flex flex-wrap gap-2">
-                                                        {dest.activities.map((act, aIdx) => (
-                                                            <span key={aIdx} className="bg-gray-100 text-gray-700 text-xs px-3 py-1 rounded-lg">
-                                                                <i className="fa-solid fa-check text-brand-primary mr-1"></i> {act}
-                                                            </span>
-                                                        ))}
+                                                    <div className="text-xs font-bold uppercase tracking-wider text-brand-blue mb-1">
+                                                        {item.country}
+                                                    </div>
+                                                    <h3 className="text-xl font-bold text-slate-800 mb-2">
+                                                        {item.name}
+                                                    </h3>
+                                                    <p className="text-slate-600 text-xs mb-4">
+                                                        {item.desc}
+                                                    </p>
+
+                                                    <div className="bg-brand-light/30 p-3 rounded-lg border border-brand-light/50 mb-4">
+                                                        <h4 className="text-xs font-bold text-brand-blue uppercase mb-1">
+                                                            Pourquoi c'est top pour voyager solo :
+                                                        </h4>
+                                                        <p className="text-xs text-slate-700">
+                                                            {item.whySolo}
+                                                        </p>
+                                                    </div>
+
+                                                    <div>
+                                                        <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+                                                            Ce que tu vas adorer faire :
+                                                        </h4>
+                                                        <ul className="space-y-1.5">
+                                                            {item.activities.map((act, i) => (
+                                                                <li key={i} className="text-xs text-slate-700 flex items-center">
+                                                                    <svg className="w-3.5 h-3.5 text-emerald-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path>
+                                                                    </svg>
+                                                                    {act}
+                                                                </li>
+                                                            ))}
+                                                        </ul>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
-                            </div>
+                                    ))}
+                                </div>
 
-                            {/* Recommencer */}
-                            <div className="text-center pt-6 border-t border-gray-100">
-                                <button
-                                    onClick={() => {
-                                        setAnswers({});
-                                        setCurrentStep(0);
-                                    }}
-                                    className="px-8 py-3 rounded-2xl font-bold text-brand-primary border-2 border-brand-primary hover:bg-brand-light transition"
-                                >
-                                    <i className="fa-solid fa-rotate-right mr-2"></i> Refaire le test
-                                </button>
+                                <div className="mt-8 text-center">
+                                    <button onClick={resetQuiz} className="bg-brand-blue hover:bg-blue-800 text-white font-bold py-3 px-8 rounded-full shadow-md transition">
+                                        Refaire le questionnaire
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )}
+                    </main>
 
-                    {/* Signature et Copyright du programme */}
-                    <footer className="text-center py-4 bg-gray-50 border-t border-gray-100 text-xs text-gray-500 font-bold tracking-wider uppercase font-londrina">
-                        SOLO & SEREINE - TOUS DROITS RESERVES
+                    {/* Footer Copyright */}
+                    <footer className="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-400">
+                        <p>© SOLO & SEREINE — Tous droits réservés. Conçu avec soin pour les voyaguses en solo.</p>
                     </footer>
-
                 </div>
             );
         }
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
     </script>
 </body>
 </html>
