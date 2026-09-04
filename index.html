@@ -11,14 +11,12 @@
     :root {
       --primary-color: #004aad;
       --primary-hover: #003680;
-      --secondary-color: #e6f0ff;
-      --accent-color: #c2dcff;
-      --bg-color: #f8fafc;
+      --secondary-color: #dbeafe;
+      --bg-color: #eef2f6;
       --card-bg: #ffffff;
       --text-main: #1e293b;
       --text-muted: #64748b;
-      --border-radius: 16px;
-      --shadow: 0 10px 25px -5px rgba(0, 74, 173, 0.08), 0 8px 10px -6px rgba(0, 74, 173, 0.04);
+      --border-radius: 20px;
     }
 
     * {
@@ -36,182 +34,299 @@
       align-items: center;
       min-height: 100vh;
       padding: 20px;
-      line-height: 1.5;
     }
 
     .container {
       background-color: var(--card-bg);
-      max-width: 620px;
+      max-width: 720px;
       width: 100%;
       border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
-      padding: 40px 32px;
-      border: 1px solid rgba(0, 74, 173, 0.1);
-      transition: all 0.3s ease;
-    }
-
-    h1, h2, h3 {
-      font-family: 'Londrina Solid', cursive;
-      color: var(--primary-color);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    h1 {
-      font-size: 2.2rem;
-      margin-bottom: 12px;
-      text-align: center;
-      line-height: 1.1;
-    }
-
-    h2 {
-      font-size: 1.6rem;
-      margin-bottom: 6px;
-      line-height: 1.2;
-    }
-
-    .subtitle {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 24px;
-    }
-
-    .welcome-text {
-      font-size: 1.05rem;
-      color: var(--text-main);
-      margin-bottom: 24px;
-      text-align: center;
-    }
-
-    .welcome-card {
-      text-align: center;
-    }
-
-    .btn-option {
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      width: 100%;
-      padding: 16px 20px;
-      margin-bottom: 12px;
-      background-color: #ffffff;
-      border: 2px solid var(--secondary-color);
-      border-radius: 12px;
-      text-align: left;
-      cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .btn-option:hover {
-      background-color: var(--secondary-color);
-      border-color: var(--primary-color);
-      transform: translateY(-2px);
+    /* En-tête bleu */
+    .header-banner {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
 
-    .option-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--primary-color);
-      margin-bottom: 2px;
+    .header-logo {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
     }
 
-    .option-desc {
+    .header-text h1 {
+      font-family: 'Londrina Solid', cursive;
+      font-size: 2rem;
+      letter-spacing: 0.5px;
+      line-height: 1;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .header-text p {
       font-size: 0.88rem;
-      color: var(--text-muted);
+      opacity: 0.9;
       font-weight: 400;
     }
 
+    /* Corps du composant */
+    .content-body {
+      padding: 36px 32px;
+      flex-grow: 1;
+    }
+
+    /* Écran d'accueil */
+    .welcome-screen {
+      text-align: center;
+      padding: 10px 20px;
+    }
+
+    .welcome-screen h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text-main);
+    }
+
+    .welcome-screen p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto 32px auto;
+      line-height: 1.6;
+    }
+
+    /* Boutons principaux */
     .btn-primary {
-      display: inline-block;
-      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       background-color: var(--primary-color);
       color: #ffffff;
-      text-align: center;
-      font-family: 'Londrina Solid', cursive;
-      text-transform: uppercase;
-      font-size: 1.4rem;
+      font-size: 1rem;
+      font-weight: 700;
       border: none;
-      padding: 16px 24px;
+      padding: 14px 28px;
       border-radius: 12px;
       cursor: pointer;
       transition: background-color 0.2s ease, transform 0.1s ease;
-      box-shadow: 0 4px 12px rgba(0, 74, 173, 0.2);
+      box-shadow: 0 4px 12px rgba(0, 74, 173, 0.25);
     }
 
     .btn-primary:hover {
       background-color: var(--primary-hover);
-      transform: translateY(-1px);
     }
 
-    .progress-container {
-      margin-bottom: 28px;
+    .btn-primary:disabled {
+      background-color: #cbd5e1;
+      box-shadow: none;
+      cursor: not-allowed;
     }
 
-    .progress-bar {
+    /* Barre de progression */
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .progress-meta span.percent {
+      color: var(--text-muted);
+    }
+
+    .progress-bar-bg {
       height: 6px;
-      background-color: var(--secondary-color);
+      background-color: #f1f5f9;
       border-radius: 10px;
       overflow: hidden;
+      margin-bottom: 24px;
     }
 
     .progress-fill {
       height: 100%;
       background-color: var(--primary-color);
-      width: 0%;
-      transition: width 0.4s ease;
+      width: 20%;
+      transition: width 0.3s ease;
     }
 
-    .hidden {
-      display: none;
+    /* Question */
+    .question-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 6px;
     }
 
+    .question-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    /* Grille d'options */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    @media (max-width: 600px) {
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .option-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 16px;
+      background-color: #ffffff;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+
+    .option-card:hover {
+      border-color: var(--primary-color);
+      background-color: #f8fafc;
+    }
+
+    .option-card.selected {
+      border-color: var(--primary-color);
+      background-color: #f0f6ff;
+      box-shadow: 0 0 0 1px var(--primary-color);
+    }
+
+    .option-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background-color: var(--secondary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--primary-color);
+    }
+
+    .option-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .option-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .option-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Navigation bas de page */
+    .navigation-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    .btn-back {
+      background: none;
+      border: none;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-back:hover {
+      color: var(--primary-color);
+    }
+
+    /* Cartes de résultats */
     .destination-card {
       background-color: #ffffff;
-      border: 1px solid var(--secondary-color);
-      border-left: 6px solid var(--primary-color);
+      border: 1px solid #e2e8f0;
+      border-left: 5px solid var(--primary-color);
       border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      text-align: left;
     }
 
     .destination-header {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 8px;
+      align-items: center;
+      margin-bottom: 6px;
     }
 
-    .destination-card h3 {
-      font-size: 1.4rem;
+    .destination-header h3 {
+      font-size: 1.2rem;
+      color: var(--primary-color);
     }
 
     .destination-badge {
       background-color: var(--secondary-color);
       color: var(--primary-color);
+      font-size: 0.75rem;
       font-weight: 600;
-      font-size: 0.8rem;
-      padding: 4px 10px;
-      border-radius: 20px;
+      padding: 2px 8px;
+      border-radius: 12px;
     }
 
     .destination-card p {
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       color: var(--text-main);
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
     .destination-card ul {
       margin-left: 18px;
-      font-size: 0.9rem;
+      font-size: 0.82rem;
       color: var(--text-muted);
     }
 
-    .destination-card li {
-      margin-bottom: 4px;
+    /* Bandeau bas */
+    .footer-banner {
+      background-color: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      text-align: center;
+      padding: 14px;
+      font-family: 'Londrina Solid', cursive;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
     }
 
-    .btn-restart {
-      margin-top: 16px;
+    .hidden {
+      display: none !important;
     }
   </style>
 </head>
@@ -219,35 +334,75 @@
 
   <div class="container">
     
-    <!-- Écran d'accueil -->
-    <div id="screen-welcome" class="welcome-card">
-      <h1>Trouve ta destination idéale</h1>
-      <p class="welcome-text">
-        Un quiz bienveillant pour t'aider à dénicher le coin parfait pour ton tout premier voyage solo !<br><br>
-        <strong>Prête à sauter le pas ?</strong><br>
-        Réponds à ces 5 petites questions simples. On fait le point ensemble sur tes envies pour te révéler 5 destinations au top, ultra adaptées pour t'élancer en toute sérénité.
-      </p>
-      <button class="btn-primary" onclick="startQuiz()">C'est parti !</button>
+    <!-- En-tête bleu unique -->
+    <div class="header-banner">
+      <svg class="header-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="45" stroke="white" stroke-width="7"/>
+        <circle cx="35" cy="40" r="5" fill="white"/>
+        <circle cx="65" cy="40" r="5" fill="white"/>
+        <path d="M 30 62 Q 50 80 70 62" stroke="white" stroke-width="7" stroke-linecap="round" fill="none"/>
+      </svg>
+      <div class="header-text">
+        <h1>Trouve ta destination idéale</h1>
+        <p>Un quiz bienveillant pour t'aider à dénicher le coin parfait pour ton tout premier voyage solo !</p>
+      </div>
     </div>
 
-    <!-- Écran de question -->
-    <div id="screen-question" class="hidden">
-      <div class="progress-container">
-        <div class="progress-bar">
+    <!-- Corps du composant -->
+    <div class="content-body">
+      
+      <!-- Écran d'accueil -->
+      <div id="screen-welcome" class="welcome-screen">
+        <h2>Prête à sauter le pas ?</h2>
+        <p>Réponds à ces 5 petites questions simples. On fait le point ensemble sur tes envies pour te révéler 5 destinations au top, ultra adaptées pour t'élancer en toute sérénité.</p>
+        <button class="btn-primary" onclick="startQuiz()">
+          C'est parti ! 
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+      </div>
+
+      <!-- Écran de question -->
+      <div id="screen-question" class="hidden">
+        <div class="progress-meta">
+          <span id="progress-text">QUESTION 1 SUR 5</span>
+          <span id="progress-percent" class="percent">20 % complété</span>
+        </div>
+        <div class="progress-bar-bg">
           <div id="progress-fill" class="progress-fill"></div>
         </div>
+
+        <h2 id="question-title" class="question-title"></h2>
+        <p id="question-subtitle" class="question-subtitle"></p>
+
+        <div id="options-container" class="options-grid"></div>
+
+        <div class="navigation-bar">
+          <button class="btn-back" onclick="prevQuestion()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Retour
+          </button>
+          <button id="btn-next" class="btn-primary" onclick="nextQuestion()" disabled>
+            Suivant
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </button>
+        </div>
       </div>
-      <h2 id="question-title"></h2>
-      <p id="question-desc" class="subtitle"></p>
-      <div id="options-container"></div>
+
+      <!-- Écran de résultats -->
+      <div id="screen-results" class="hidden">
+        <h2 style="font-size: 1.5rem; text-align: center; margin-bottom: 8px;">Tes 5 destinations au top</h2>
+        <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">Voici les options idéales adaptées à tes réponses pour t'élancer en toute sérénité :</p>
+        <div id="results-container"></div>
+        <div style="text-align: center; margin-top: 20px;">
+          <button class="btn-primary" onclick="restartQuiz()">Refaire le test</button>
+        </div>
+      </div>
+
     </div>
 
-    <!-- Écran de résultats -->
-    <div id="screen-results" class="hidden">
-      <h1>Tes 5 destinations au top</h1>
-      <p class="subtitle" style="text-align: center;">Voici les options idéales adaptées à tes réponses pour t'élancer en toute sérénité :</p>
-      <div id="results-container"></div>
-      <button class="btn-primary btn-restart" onclick="restartQuiz()">Refaire le test</button>
+    <!-- Bandeau de pied de page -->
+    <div class="footer-banner">
+      SOLO & SEREINE – TOUS DROITS RESERVES
     </div>
 
   </div>
@@ -258,178 +413,83 @@
         title: "Où est-ce que tu as envie d'aller ?",
         subtitle: "Sélectionne la zone qui te fait le plus vibrer pour ce premier départ.",
         options: [
-          { text: "En France", desc: "S'évader tout en restant dans l'hexagone", filter: { scope: "france" } },
-          { text: "À l'étranger", desc: "Changer complètement d'air et de culture", filter: { scope: "etranger" } },
-          { text: "Peu importe", desc: "Je suis totalement ouverte aux deux !", filter: { scope: "both" } }
+          { text: "En France", desc: "S'évader tout en restant dans l'hexagone", icon: "location", filter: { scope: "france" } },
+          { text: "À l'étranger", desc: "Changer complètement d'air et de culture", icon: "plane", filter: { scope: "etranger" } },
+          { text: "Peu importe", desc: "Je suis totalement ouverte aux deux !", icon: "compass", filter: { scope: "both" } }
         ]
       },
       {
         title: "C'est quoi ton ambiance idéale ?",
         subtitle: "Choisis le décor qui te donnera le sourire dès le matin.",
         options: [
-          { text: "Ville et culture", desc: "Cafés sympa, musées et flâneries urbaines", filter: { environment: "ville" } },
-          { text: "Nature et campagne", desc: "Grands espaces, villages et grand air", filter: { environment: "campagne" } },
-          { text: "Mer et littoral", desc: "Brise marine, plages, lacs et balades", filter: { environment: "mer" } },
-          { text: "Un joli mix", desc: "Un petit mélange de plusieurs décors.", filter: { environment: "mix" } }
+          { text: "Ville et culture", desc: "Cafés sympa, musées et flâneries urbaines", icon: "city", filter: { environment: "ville" } },
+          { text: "Nature et campagne", desc: "Grands espaces, villages et grand air", icon: "tree", filter: { environment: "campagne" } },
+          { text: "Mer et littoral", desc: "Brise marine, plages, lacs et balades", icon: "wave", filter: { environment: "mer" } },
+          { text: "Un joli mix", desc: "Un petit mélange de plusieurs décors.", icon: "mix", filter: { environment: "mix" } }
         ]
       },
       {
         title: "Combien de temps tu souhaites partir ?",
         subtitle: "Choisis la durée qui te rassure et te convient.",
         options: [
-          { text: "Court séjour (2 à 4 jours)", desc: "Un petit week-end prolongé pour tester", filter: { duration: "court" } },
-          { text: "Une semaine (7 à 10 jours)", desc: "Une belle pause pour bien déconnecter", filter: { duration: "semaine" } },
-          { text: "Deux semaines", desc: "Un vrai voyage pour prendre ton temps", filter: { duration: "quinzaine" } },
-          { text: "Trois semaines ou plus", desc: "La grande aventure en mode immersion.", filter: { duration: "long" } }
+          { text: "Court séjour (2 à 4 jours)", desc: "Un petit week-end prolongé pour tester", icon: "calendar", filter: { duration: "court" } },
+          { text: "Une semaine (7 à 10 jours)", desc: "Une belle pause pour bien déconnecter", icon: "calendar", filter: { duration: "semaine" } },
+          { text: "Deux semaines", desc: "Un vrai voyage pour prendre ton temps", icon: "calendar", filter: { duration: "quinzaine" } },
+          { text: "Trois semaines ou plus", desc: "La grande aventure en mode immersion.", icon: "calendar", filter: { duration: "long" } }
         ]
       },
       {
         title: "Comment tu imagines tes déplacements ?",
         subtitle: "Le moyen de transport avec lequel tu te sens le plus à l'aise.",
         options: [
-          { text: "En train", desc: "Voyager sereinement au fil des rails", filter: { transport: "train" } },
-          { text: "En avion", desc: "S'envoler vers de nouveaux horizons", filter: { transport: "avion" } },
-          { text: "En voiture", desc: "S'offrir une liberté totale sur la route", filter: { transport: "voiture" } },
-          { text: "Peu importe", desc: "Je m'adapte très facilement.", filter: { transport: "flex" } }
+          { text: "En train", desc: "Voyager sereinement au fil des rails", icon: "train", filter: { transport: "train" } },
+          { text: "En avion", desc: "S'envoler vers de nouveaux horizons", icon: "plane", filter: { transport: "avion" } },
+          { text: "En voiture", desc: "S'offrir une liberté totale sur la route", icon: "car", filter: { transport: "voiture" } },
+          { text: "Peu importe", desc: "Je m'adapte très facilement.", icon: "compass", filter: { transport: "flex" } }
         ]
       },
       {
         title: "Quel est ton budget estimé ?",
         subtitle: "En comptant le transport, le logement et tes petits plaisirs sur place.",
         options: [
-          { text: "Moins de 500 €", desc: "Budget doux et astucieux", filter: { budget: "eco" } },
-          { text: "500 € à 1 200 €", desc: "Budget équilibré et confortable", filter: { budget: "moyen" } },
-          { text: "1 200 € à 2 500 €", desc: "Budget plaisir pour se faire plaisir", filter: { budget: "confort" } },
-          { text: "Plus de 2 500 €", desc: "Grand voyage sans se priver", filter: { budget: "premium" } }
+          { text: "Moins de 500 €", desc: "Budget doux et astucieux", icon: "wallet", filter: { budget: "eco" } },
+          { text: "500 € à 1 200 €", desc: "Budget équilibré et confortable", icon: "wallet", filter: { budget: "moyen" } },
+          { text: "1 200 € à 2 500 €", desc: "Budget plaisir pour se faire plaisir", icon: "wallet", filter: { budget: "confort" } },
+          { text: "Plus de 2 500 €", desc: "Grand voyage sans se priver", icon: "wallet", filter: { budget: "premium" } }
         ]
       }
     ];
 
+    const iconsSVG = {
+      location: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>`,
+      plane: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3.5c-.5-.5-2.5 0-4 1.5L13.5 8.5 5.3 6.7c-.7-.2-1.5.1-1.8.8l-.5.9 5.2 3.5-3.5 3.5-2.3-.6c-.4-.1-.8.1-1 .4l-.4.5 3 3 3 3 .5-.4c.3-.2.5-.6.4-1l-.6-2.3 3.5-3.5 3.5 5.2.9-.5c.7-.3 1-1.1.8-1.8z"></path></svg>`,
+      compass: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>`,
+      city: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"></path></svg>`,
+      tree: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 19 7-7 3 3-7 7-3-3z"></path><path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path></svg>`,
+      wave: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"></path><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"></path></svg>`,
+      mix: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>`,
+      calendar: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`,
+      train: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="16" rx="2"></rect><path d="M4 11h16"></path><path d="M12 3v8"></path><path d="m8 19-3 3"></path><path d="m16 19 3 3"></path><circle cx="8" cy="15" r="1"></circle><circle cx="16" cy="15" r="1"></circle></svg>`,
+      car: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H7.5a1 1 0 0 0-.8.4L4 11l-3.16.86A1 1 0 0 0 0 12.85V16h3"></path><circle cx="6.5" cy="16.5" r="2.5"></circle><circle cx="16.5" cy="16.5" r="2.5"></circle></svg>`,
+      wallet: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path><path d="M18 12a2 2 0 0 0 0 4h4v-4z"></path></svg>`
+    };
+
     const destinations = [
-      {
-        flag: "🇵🇹",
-        name: "Lisbonne",
-        region: "Portugal",
-        scope: "etranger",
-        environment: ["ville", "mer", "mix"],
-        transport: ["avion"],
-        duration: ["court", "semaine"],
-        budget: ["eco", "moyen"],
-        why: "Ville à taille humaine, transports simples, idéale pour une première expérience européenne.",
-        activities: ["Visite des quartiers historiques", "Point de vue depuis les miradouros", "Excursion à Sintra"]
-      },
-      {
-        flag: "🇫🇷",
-        name: "Annecy & son lac",
-        region: "Haute-Savoie",
-        scope: "france",
-        environment: ["campagne", "mer", "mix"],
-        transport: ["train", "voiture"],
-        duration: ["court", "semaine"],
-        budget: ["moyen", "confort"],
-        why: "Destination très sécurisante avec un cadre naturel accessible à pied ou à vélo.",
-        activities: ["Tour du lac à vélo", "Visite de la vieille ville", "Randonnée au mont Veyrier"]
-      },
-      {
-        flag: "🇩🇰",
-        name: "Copenhague",
-        region: "Danemark",
-        scope: "etranger",
-        environment: ["ville", "mix"],
-        transport: ["avion"],
-        duration: ["court", "semaine"],
-        budget: ["confort", "premium"],
-        why: "Infrastructures modernes, ville très sûre et très facile à explorer à vélo.",
-        activities: ["Balade au port de Nyhavn", "Visite du parc Tivoli", "Exploration à vélo"]
-      },
-      {
-        flag: "🇫🇷",
-        name: "La Bretagne du Sud",
-        region: "Vannes & Golfe",
-        scope: "france",
-        environment: ["campagne", "mer", "mix"],
-        transport: ["train", "voiture"],
-        duration: ["court", "semaine"],
-        budget: ["eco", "moyen"],
-        why: "Un environnement paisible avec de nombreuses options de balades sur le littoral.",
-        activities: ["Traversée vers l'Île-aux-Moines", "Visite du centre historique de Vannes", "Randonnée sur le sentier des douaniers"]
-      },
-      {
-        flag: "🇨🇦",
-        name: "Montréal",
-        region: "Canada",
-        scope: "etranger",
-        environment: ["ville", "mix"],
-        transport: ["avion"],
-        duration: ["quinzaine", "long"],
-        budget: ["confort", "premium"],
-        why: "L'exotisme de l'Amérique du Nord sans la barrière de la langue et dans un cadre très sûr.",
-        activities: ["Promenade dans le Vieux-Montréal", "Montée du Parc du Mont-Royal", "Découverte des marchés locaux"]
-      },
-      {
-        flag: "🇹🇭",
-        name: "Chiang Mai",
-        region: "Thaïlande",
-        scope: "etranger",
-        environment: ["ville", "campagne", "mix"],
-        transport: ["avion"],
-        duration: ["quinzaine", "long"],
-        budget: ["eco", "moyen"],
-        why: "Destination très accueillante pour les voyageurs solo, avec un coût de la vie bas.",
-        activities: ["Visite des temples historiques", "Cours de cuisine locale", "Excursion dans les montagnes"]
-      },
-      {
-        flag: "🇫🇷",
-        name: "Strasbourg",
-        region: "Alsace",
-        scope: "france",
-        environment: ["ville", "campagne", "mix"],
-        transport: ["train", "voiture"],
-        duration: ["court", "semaine"],
-        budget: ["eco", "moyen"],
-        why: "Très facile d'accès en train, ville piétonne avec de petites communes pittoresques à proximité.",
-        activities: ["Visite de la Petite France", "Découverte des villages alsaciens", "Balade au parc de l'Orangerie"]
-      },
-      {
-        flag: "🇬🇧",
-        name: "Édimbourg",
-        region: "Écosse",
-        scope: "etranger",
-        environment: ["ville", "mix"],
-        transport: ["avion", "train"],
-        duration: ["court", "semaine"],
-        budget: ["moyen", "confort"],
-        why: "Ville compacte, riche en histoire, avec une atmosphère accueillante et facile à parcourir à pied.",
-        activities: ["Visite du château d'Édimbourg", "Ascension d'Arthur's Seat", "Balade sur le Royal Mile"]
-      },
-      {
-        flag: "🇫🇷",
-        name: "L'Île de Ré",
-        region: "Charente-Maritime",
-        scope: "france",
-        environment: ["mer", "campagne"],
-        transport: ["voiture", "train"],
-        duration: ["court", "semaine"],
-        budget: ["moyen", "confort"],
-        why: "Un cadre relaxant entièrement praticable à vélo, parfait pour se ressourcer en toute tranquillité.",
-        activities: ["Balades à vélo entre les marais salants", "Visite du Phare des Baleines", "Détente sur les plages"]
-      },
-      {
-        flag: "🇯🇵",
-        name: "Kyoto",
-        region: "Japon",
-        scope: "etranger",
-        environment: ["ville", "campagne", "mix"],
-        transport: ["avion"],
-        duration: ["quinzaine", "long"],
-        budget: ["confort", "premium"],
-        why: "Niveau de sécurité extrêmement élevé et transports en commun d'une grande efficacité.",
-        activities: ["Visite du sanctuaire Fushimi Inari", "Découverte des jardins zen", "Promenade dans le quartier de Gion"]
-      }
+      { flag: "🇵🇹", name: "Lisbonne", region: "Portugal", scope: "etranger", environment: ["ville", "mer", "mix"], transport: ["avion"], duration: ["court", "semaine"], budget: ["eco", "moyen"], why: "Ville à taille humaine, transports simples, idéale pour une première expérience européenne.", activities: ["Visite des quartiers historiques", "Point de vue depuis les miradouros", "Excursion à Sintra"] },
+      { flag: "🇫🇷", name: "Annecy & son lac", region: "Haute-Savoie", scope: "france", environment: ["campagne", "mer", "mix"], transport: ["train", "voiture"], duration: ["court", "semaine"], budget: ["moyen", "confort"], why: "Destination très sécurisante avec un cadre naturel accessible à pied ou à vélo.", activities: ["Tour du lac à vélo", "Visite de la vieille ville", "Randonnée au mont Veyrier"] },
+      { flag: "🇩🇰", name: "Copenhague", region: "Danemark", scope: "etranger", environment: ["ville", "mix"], transport: ["avion"], duration: ["court", "semaine"], budget: ["confort", "premium"], why: "Infrastructures modernes, ville très sûre et très facile à explorer à vélo.", activities: ["Balade au port de Nyhavn", "Visite du parc Tivoli", "Exploration à vélo"] },
+      { flag: "🇫🇷", name: "La Bretagne du Sud", region: "Vannes & Golfe", scope: "france", environment: ["campagne", "mer", "mix"], transport: ["train", "voiture"], duration: ["court", "semaine"], budget: ["eco", "moyen"], why: "Un environnement paisible avec de nombreuses options de balades sur le littoral.", activities: ["Traversée vers l'Île-aux-Moines", "Visite du centre historique de Vannes", "Randonnée sur le sentier des douaniers"] },
+      { flag: "🇨🇦", name: "Montréal", region: "Canada", scope: "etranger", environment: ["ville", "mix"], transport: ["avion"], duration: ["quinzaine", "long"], budget: ["confort", "premium"], why: "L'exotisme de l'Amérique du Nord sans la barrière de la langue et dans un cadre très sûr.", activities: ["Promenade dans le Vieux-Montréal", "Montée du Parc du Mont-Royal", "Découverte des marchés locaux"] },
+      { flag: "🇹🇭", name: "Chiang Mai", region: "Thaïlande", scope: "etranger", environment: ["ville", "campagne", "mix"], transport: ["avion"], duration: ["quinzaine", "long"], budget: ["eco", "moyen"], why: "Destination très accueillante pour les voyageurs solo, avec un coût de la vie bas.", activities: ["Visite des temples historiques", "Cours de cuisine locale", "Excursion dans les montagnes"] },
+      { flag: "🇫🇷", name: "Strasbourg", region: "Alsace", scope: "france", environment: ["ville", "campagne", "mix"], transport: ["train", "voiture"], duration: ["court", "semaine"], budget: ["eco", "moyen"], why: "Très facile d'accès en train, ville piétonne avec de petites communes pittoresques à proximité.", activities: ["Visite de la Petite France", "Découverte des villages alsaciens", "Balade au parc de l'Orangerie"] },
+      { flag: "🇬🇧", name: "Édimbourg", region: "Écosse", scope: "etranger", environment: ["ville", "mix"], transport: ["avion", "train"], duration: ["court", "semaine"], budget: ["moyen", "confort"], why: "Ville compacte, riche en histoire, avec une atmosphère accueillante et facile à parcourir à pied.", activities: ["Visite du château d'Édimbourg", "Ascension d'Arthur's Seat", "Balade sur le Royal Mile"] },
+      { flag: "🇫🇷", name: "L'Île de Ré", region: "Charente-Maritime", scope: "france", environment: ["mer", "campagne"], transport: ["voiture", "train"], duration: ["court", "semaine"], budget: ["moyen", "confort"], why: "Un cadre relaxant entièrement praticable à vélo, parfait pour se ressourcer en toute tranquillité.", activities: ["Balades à vélo entre les marais salants", "Visite du Phare des Baleines", "Détente sur les plages"] },
+      { flag: "🇯🇵", name: "Kyoto", region: "Japon", scope: "etranger", environment: ["ville", "campagne", "mix"], transport: ["avion"], duration: ["quinzaine", "long"], budget: ["confort", "premium"], why: "Niveau de sécurité extrêmement élevé et transports en commun d'une grande efficacité.", activities: ["Visite du sanctuaire Fushimi Inari", "Découverte des jardins zen", "Promenade dans le quartier de Gion"] }
     ];
 
     let currentQuestion = 0;
     let userAnswers = [];
+    let selectedCurrentFilter = null;
 
     function startQuiz() {
       document.getElementById('screen-welcome').classList.add('hidden');
@@ -440,30 +500,49 @@
     }
 
     function showQuestion() {
+      selectedCurrentFilter = userAnswers[currentQuestion] || null;
       const q = questions[currentQuestion];
-      document.getElementById('question-title').innerText = q.title;
-      document.getElementById('question-desc').innerText = q.subtitle;
       
-      const progress = ((currentQuestion) / questions.length) * 100;
-      document.getElementById('progress-fill').style.width = progress + '%';
+      document.getElementById('progress-text').innerText = `QUESTION ${currentQuestion + 1} SUR ${questions.length}`;
+      const percent = Math.round(((currentQuestion + 1) / questions.length) * 100);
+      document.getElementById('progress-percent').innerText = `${percent} % complété`;
+      document.getElementById('progress-fill').style.width = percent + '%';
+
+      document.getElementById('question-title').innerText = q.title;
+      document.getElementById('question-subtitle').innerText = q.subtitle;
 
       const optionsContainer = document.getElementById('options-container');
       optionsContainer.innerHTML = '';
 
       q.options.forEach(opt => {
-        const btn = document.createElement('button');
-        btn.className = 'btn-option';
-        btn.innerHTML = `
-          <span class="option-title">${opt.text}</span>
-          <span class="option-desc">${opt.desc}</span>
+        const card = document.createElement('div');
+        const isSelected = selectedCurrentFilter && JSON.stringify(selectedCurrentFilter) === JSON.stringify(opt.filter);
+        card.className = `option-card ${isSelected ? 'selected' : ''}`;
+        
+        card.innerHTML = `
+          <div class="option-icon">${iconsSVG[opt.icon] || iconsSVG.compass}</div>
+          <div class="option-info">
+            <span class="option-title">${opt.text}</span>
+            <span class="option-desc">${opt.desc}</span>
+          </div>
         `;
-        btn.onclick = () => selectOption(opt.filter);
-        optionsContainer.appendChild(btn);
+        
+        card.onclick = () => {
+          document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+          selectedCurrentFilter = opt.filter;
+          document.getElementById('btn-next').disabled = false;
+        };
+        
+        optionsContainer.appendChild(card);
       });
+
+      document.getElementById('btn-next').disabled = !selectedCurrentFilter;
     }
 
-    function selectOption(filter) {
-      userAnswers.push(filter);
+    function nextQuestion() {
+      if (!selectedCurrentFilter) return;
+      userAnswers[currentQuestion] = selectedCurrentFilter;
       currentQuestion++;
 
       if (currentQuestion < questions.length) {
@@ -473,31 +552,29 @@
       }
     }
 
+    function prevQuestion() {
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        showQuestion();
+      } else {
+        document.getElementById('screen-question').classList.add('hidden');
+        document.getElementById('screen-welcome').classList.remove('hidden');
+      }
+    }
+
     function showResults() {
       document.getElementById('screen-question').classList.add('hidden');
       document.getElementById('screen-results').classList.remove('hidden');
 
       const scoredDestinations = destinations.map(dest => {
         let score = 0;
-
         userAnswers.forEach(answer => {
-          if (answer.scope) {
-            if (answer.scope === 'both' || dest.scope === answer.scope) score += 10;
-          }
-          if (answer.environment) {
-            if (dest.environment.includes(answer.environment) || answer.environment === 'mix') score += 5;
-          }
-          if (answer.transport) {
-            if (dest.transport.includes(answer.transport) || answer.transport === 'flex') score += 5;
-          }
-          if (answer.duration) {
-            if (dest.duration.includes(answer.duration)) score += 3;
-          }
-          if (answer.budget) {
-            if (dest.budget.includes(answer.budget)) score += 3;
-          }
+          if (answer.scope && (answer.scope === 'both' || dest.scope === answer.scope)) score += 10;
+          if (answer.environment && (dest.environment.includes(answer.environment) || answer.environment === 'mix')) score += 5;
+          if (answer.transport && (dest.transport.includes(answer.transport) || answer.transport === 'flex')) score += 5;
+          if (answer.duration && dest.duration.includes(answer.duration)) score += 3;
+          if (answer.budget && dest.budget.includes(answer.budget)) score += 3;
         });
-
         return { ...dest, score };
       });
 
