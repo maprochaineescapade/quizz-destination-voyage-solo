@@ -3,18 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trouver ma destination de premier voyage solo</title>
+  <title>Trouve ta destination idéale</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Londrina+Solid&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Londrina+Solid&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary-color: #004aad;
-      --secondary-color: #c2dcff;
-      --bg-color: #f4f8fc;
+      --primary-hover: #003680;
+      --secondary-color: #e6f0ff;
+      --accent-color: #c2dcff;
+      --bg-color: #f8fafc;
       --card-bg: #ffffff;
-      --text-color: #2c3e50;
-      --border-radius: 12px;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border-radius: 16px;
+      --shadow: 0 10px 25px -5px rgba(0, 74, 173, 0.08), 0 8px 10px -6px rgba(0, 74, 173, 0.04);
     }
 
     * {
@@ -24,9 +28,9 @@
     }
 
     body {
-      font-family: 'Arial Nova', Arial, sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background-color: var(--bg-color);
-      color: var(--text-color);
+      color: var(--text-main);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -37,16 +41,17 @@
 
     .container {
       background-color: var(--card-bg);
-      max-width: 650px;
+      max-width: 620px;
       width: 100%;
       border-radius: var(--border-radius);
-      box-shadow: 0 8px 24px rgba(0, 74, 173, 0.1);
-      padding: 40px 30px;
-      border: 2px solid var(--secondary-color);
+      box-shadow: var(--shadow);
+      padding: 40px 32px;
+      border: 1px solid rgba(0, 74, 173, 0.1);
+      transition: all 0.3s ease;
     }
 
     h1, h2, h3 {
-      font-family: 'Londrina Solid', sans-serif;
+      font-family: 'Londrina Solid', cursive;
       color: var(--primary-color);
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -54,62 +59,97 @@
 
     h1 {
       font-size: 2.2rem;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
       text-align: center;
+      line-height: 1.1;
     }
 
     h2 {
       font-size: 1.6rem;
-      margin-bottom: 25px;
+      margin-bottom: 6px;
+      line-height: 1.2;
     }
 
-    p {
-      margin-bottom: 20px;
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    .welcome-text {
       font-size: 1.05rem;
+      color: var(--text-main);
+      margin-bottom: 24px;
+      text-align: center;
     }
 
-    .btn {
-      display: block;
+    .welcome-card {
+      text-align: center;
+    }
+
+    .btn-option {
+      display: flex;
+      flex-direction: column;
       width: 100%;
       padding: 16px 20px;
       margin-bottom: 12px;
       background-color: #ffffff;
       border: 2px solid var(--secondary-color);
-      border-radius: var(--border-radius);
-      color: var(--primary-color);
-      font-size: 1rem;
-      font-weight: bold;
+      border-radius: 12px;
       text-align: left;
       cursor: pointer;
-      transition: all 0.2s ease;
-      font-family: 'Arial Nova', Arial, sans-serif;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .btn:hover {
+    .btn-option:hover {
       background-color: var(--secondary-color);
       border-color: var(--primary-color);
+      transform: translateY(-2px);
     }
 
-    .btn-start {
+    .option-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 2px;
+    }
+
+    .option-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      width: 100%;
       background-color: var(--primary-color);
       color: #ffffff;
       text-align: center;
-      font-family: 'Londrina Solid', sans-serif;
+      font-family: 'Londrina Solid', cursive;
       text-transform: uppercase;
       font-size: 1.4rem;
       border: none;
-      padding: 18px;
+      padding: 16px 24px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+      box-shadow: 0 4px 12px rgba(0, 74, 173, 0.2);
     }
 
-    .btn-start:hover {
-      background-color: #003680;
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .progress-container {
+      margin-bottom: 28px;
     }
 
     .progress-bar {
-      height: 8px;
+      height: 6px;
       background-color: var(--secondary-color);
-      border-radius: 4px;
-      margin-bottom: 30px;
+      border-radius: 10px;
       overflow: hidden;
     }
 
@@ -117,7 +157,7 @@
       height: 100%;
       background-color: var(--primary-color);
       width: 0%;
-      transition: width 0.3s ease;
+      transition: width 0.4s ease;
     }
 
     .hidden {
@@ -127,37 +167,51 @@
     .destination-card {
       background-color: #ffffff;
       border: 1px solid var(--secondary-color);
-      border-left: 5px solid var(--primary-color);
-      border-radius: 8px;
+      border-left: 6px solid var(--primary-color);
+      border-radius: 12px;
       padding: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+
+    .destination-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
     }
 
     .destination-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 5px;
+      font-size: 1.4rem;
     }
 
-    .destination-region {
-      font-weight: bold;
-      color: #555;
-      font-size: 0.9rem;
-      margin-bottom: 10px;
+    .destination-badge {
+      background-color: var(--secondary-color);
+      color: var(--primary-color);
+      font-weight: 600;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .destination-card p {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      margin-bottom: 12px;
     }
 
     .destination-card ul {
-      margin-left: 20px;
-      margin-top: 10px;
+      margin-left: 18px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .destination-card li {
+      margin-bottom: 4px;
     }
 
     .btn-restart {
-      margin-top: 20px;
-      background-color: var(--primary-color);
-      color: white;
-      text-align: center;
-      font-family: 'Londrina Solid', sans-serif;
-      text-transform: uppercase;
-      font-size: 1.2rem;
+      margin-top: 16px;
     }
   </style>
 </head>
@@ -166,27 +220,34 @@
   <div class="container">
     
     <!-- Écran d'accueil -->
-    <div id="screen-welcome">
-      <h1>Trouver ma destination de premier voyage solo</h1>
-      <p>Ce questionnaire vous aide à identifier les destinations les plus adaptées à vos critères pour votre tout premier départ en solo.</p>
-      <button class="btn btn-start" onclick="startQuiz()">Lancer le test</button>
+    <div id="screen-welcome" class="welcome-card">
+      <h1>Trouve ta destination idéale</h1>
+      <p class="welcome-text">
+        Un quiz bienveillant pour t'aider à dénicher le coin parfait pour ton tout premier voyage solo !<br><br>
+        <strong>Prête à sauter le pas ?</strong><br>
+        Réponds à ces 5 petites questions simples. On fait le point ensemble sur tes envies pour te révéler 5 destinations au top, ultra adaptées pour t'élancer en toute sérénité.
+      </p>
+      <button class="btn-primary" onclick="startQuiz()">C'est parti !</button>
     </div>
 
     <!-- Écran de question -->
     <div id="screen-question" class="hidden">
-      <div class="progress-bar">
-        <div id="progress-fill" class="progress-fill"></div>
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
       </div>
       <h2 id="question-title"></h2>
+      <p id="question-desc" class="subtitle"></p>
       <div id="options-container"></div>
     </div>
 
     <!-- Écran de résultats -->
     <div id="screen-results" class="hidden">
-      <h1>Vos 5 destinations recommandées</h1>
-      <p>Voici les 5 options qui correspondent le mieux à vos préférences de voyage :</p>
+      <h1>Tes 5 destinations au top</h1>
+      <p class="subtitle" style="text-align: center;">Voici les options idéales adaptées à tes réponses pour t'élancer en toute sérénité :</p>
       <div id="results-container"></div>
-      <button class="btn btn-restart" onclick="restartQuiz()">Refaire le test</button>
+      <button class="btn-primary btn-restart" onclick="restartQuiz()">Refaire le test</button>
     </div>
 
   </div>
@@ -194,53 +255,61 @@
   <script>
     const questions = [
       {
-        title: "Quelle est la zone géographique souhaitée ?",
+        title: "Où est-ce que tu as envie d'aller ?",
+        subtitle: "Sélectionne la zone qui te fait le plus vibrer pour ce premier départ.",
         options: [
-          { text: "En France uniquement", filter: { scope: "france" } },
-          { text: "À l'étranger uniquement", filter: { scope: "etranger" } },
-          { text: "Ouverte à la France et à l'étranger", filter: { scope: "both" } }
+          { text: "En France", desc: "S'évader tout en restant dans l'hexagone", filter: { scope: "france" } },
+          { text: "À l'étranger", desc: "Changer complètement d'air et de culture", filter: { scope: "etranger" } },
+          { text: "Peu importe", desc: "Je suis totalement ouverte aux deux !", filter: { scope: "both" } }
         ]
       },
       {
-        title: "Quel environnement recherchez-vous ?",
+        title: "C'est quoi ton ambiance idéale ?",
+        subtitle: "Choisis le décor qui te donnera le sourire dès le matin.",
         options: [
-          { text: "Ville et patrimoine culturel", filter: { environment: "ville" } },
-          { text: "Campagne et villages tranquilles", filter: { environment: "campagne" } },
-          { text: "Mer, lacs et littoraux", filter: { environment: "mer" } },
-          { text: "Un mélange de plusieurs paysages", filter: { environment: "mix" } }
+          { text: "Ville et culture", desc: "Cafés sympa, musées et flâneries urbaines", filter: { environment: "ville" } },
+          { text: "Nature et campagne", desc: "Grands espaces, villages et grand air", filter: { environment: "campagne" } },
+          { text: "Mer et littoral", desc: "Brise marine, plages, lacs et balades", filter: { environment: "mer" } },
+          { text: "Un joli mix", desc: "Un petit mélange de plusieurs décors.", filter: { environment: "mix" } }
         ]
       },
       {
-        title: "Quel moyen de transport souhaitez-vous utiliser ?",
+        title: "Combien de temps tu souhaites partir ?",
+        subtitle: "Choisis la durée qui te rassure et te convient.",
         options: [
-          { text: "Le train", filter: { transport: "train" } },
-          { text: "L'avion", filter: { transport: "avion" } },
-          { text: "La voiture", filter: { transport: "voiture" } },
-          { text: "Indifférent", filter: { transport: "flex" } }
+          { text: "Court séjour (2 à 4 jours)", desc: "Un petit week-end prolongé pour tester", filter: { duration: "court" } },
+          { text: "Une semaine (7 à 10 jours)", desc: "Une belle pause pour bien déconnecter", filter: { duration: "semaine" } },
+          { text: "Deux semaines", desc: "Un vrai voyage pour prendre ton temps", filter: { duration: "quinzaine" } },
+          { text: "Trois semaines ou plus", desc: "La grande aventure en mode immersion.", filter: { duration: "long" } }
         ]
       },
       {
-        title: "Quelle est la durée envisagée du séjour ?",
+        title: "Comment tu imagines tes déplacements ?",
+        subtitle: "Le moyen de transport avec lequel tu te sens le plus à l'aise.",
         options: [
-          { text: "Un court séjour (2 à 4 jours)", filter: { duration: "court" } },
-          { text: "Une semaine", filter: { duration: "semaine" } },
-          { text: "Deux semaines ou plus", filter: { duration: "long" } }
+          { text: "En train", desc: "Voyager sereinement au fil des rails", filter: { transport: "train" } },
+          { text: "En avion", desc: "S'envoler vers de nouveaux horizons", filter: { transport: "avion" } },
+          { text: "En voiture", desc: "S'offrir une liberté totale sur la route", filter: { transport: "voiture" } },
+          { text: "Peu importe", desc: "Je m'adapte très facilement.", filter: { transport: "flex" } }
         ]
       },
       {
-        title: "Quel est le budget estimé pour le séjour (hors transport principal) ?",
+        title: "Quel est ton budget estimé ?",
+        subtitle: "En comptant le transport, le logement et tes petits plaisirs sur place.",
         options: [
-          { text: "Moins de 500 €", filter: { budget: "eco" } },
-          { text: "Entre 500 € et 1200 €", filter: { budget: "moyen" } },
-          { text: "Plus de 1200 €", filter: { budget: "eleve" } }
+          { text: "Moins de 500 €", desc: "Budget doux et astucieux", filter: { budget: "eco" } },
+          { text: "500 € à 1 200 €", desc: "Budget équilibré et confortable", filter: { budget: "moyen" } },
+          { text: "1 200 € à 2 500 €", desc: "Budget plaisir pour se faire plaisir", filter: { budget: "confort" } },
+          { text: "Plus de 2 500 €", desc: "Grand voyage sans se priver", filter: { budget: "premium" } }
         ]
       }
     ];
 
     const destinations = [
       {
+        flag: "🇵🇹",
         name: "Lisbonne",
-        region: "Portugal (Europe)",
+        region: "Portugal",
         scope: "etranger",
         environment: ["ville", "mer", "mix"],
         transport: ["avion"],
@@ -250,30 +319,33 @@
         activities: ["Visite des quartiers historiques", "Point de vue depuis les miradouros", "Excursion à Sintra"]
       },
       {
+        flag: "🇫🇷",
         name: "Annecy & son lac",
-        region: "Haute-Savoie (France)",
+        region: "Haute-Savoie",
         scope: "france",
         environment: ["campagne", "mer", "mix"],
         transport: ["train", "voiture"],
         duration: ["court", "semaine"],
-        budget: ["moyen", "eleve"],
+        budget: ["moyen", "confort"],
         why: "Destination très sécurisante avec un cadre naturel accessible à pied ou à vélo.",
         activities: ["Tour du lac à vélo", "Visite de la vieille ville", "Randonnée au mont Veyrier"]
       },
       {
+        flag: "🇩🇰",
         name: "Copenhague",
-        region: "Danemark (Europe)",
+        region: "Danemark",
         scope: "etranger",
         environment: ["ville", "mix"],
         transport: ["avion"],
         duration: ["court", "semaine"],
-        budget: ["eleve"],
+        budget: ["confort", "premium"],
         why: "Infrastructures modernes, ville très sûre et très facile à explorer à vélo.",
         activities: ["Balade au port de Nyhavn", "Visite du parc Tivoli", "Exploration à vélo"]
       },
       {
-        name: "La Bretagne du Sud (Vannes & le Golfe)",
-        region: "Bretagne (France)",
+        flag: "🇫🇷",
+        name: "La Bretagne du Sud",
+        region: "Vannes & Golfe",
         scope: "france",
         environment: ["campagne", "mer", "mix"],
         transport: ["train", "voiture"],
@@ -283,30 +355,33 @@
         activities: ["Traversée vers l'Île-aux-Moines", "Visite du centre historique de Vannes", "Randonnée sur le sentier des douaniers"]
       },
       {
+        flag: "🇨🇦",
         name: "Montréal",
-        region: "Québec (Canada)",
+        region: "Canada",
         scope: "etranger",
         environment: ["ville", "mix"],
         transport: ["avion"],
-        duration: ["semaine", "long"],
-        budget: ["moyen", "eleve"],
+        duration: ["quinzaine", "long"],
+        budget: ["confort", "premium"],
         why: "L'exotisme de l'Amérique du Nord sans la barrière de la langue et dans un cadre très sûr.",
         activities: ["Promenade dans le Vieux-Montréal", "Montée du Parc du Mont-Royal", "Découverte des marchés locaux"]
       },
       {
+        flag: "🇹🇭",
         name: "Chiang Mai",
-        region: "Thaïlande (Asie)",
+        region: "Thaïlande",
         scope: "etranger",
         environment: ["ville", "campagne", "mix"],
         transport: ["avion"],
-        duration: ["long"],
-        budget: ["eco"],
+        duration: ["quinzaine", "long"],
+        budget: ["eco", "moyen"],
         why: "Destination très accueillante pour les voyageurs solo, avec un coût de la vie bas.",
         activities: ["Visite des temples historiques", "Cours de cuisine locale", "Excursion dans les montagnes"]
       },
       {
-        name: "Strasbourg & la Route des Vins",
-        region: "Alsace (France)",
+        flag: "🇫🇷",
+        name: "Strasbourg",
+        region: "Alsace",
         scope: "france",
         environment: ["ville", "campagne", "mix"],
         transport: ["train", "voiture"],
@@ -316,35 +391,38 @@
         activities: ["Visite de la Petite France", "Découverte des villages alsaciens", "Balade au parc de l'Orangerie"]
       },
       {
+        flag: "🇬🇧",
         name: "Édimbourg",
-        region: "Écosse (Royaume-Uni)",
+        region: "Écosse",
         scope: "etranger",
         environment: ["ville", "mix"],
         transport: ["avion", "train"],
         duration: ["court", "semaine"],
-        budget: ["moyen", "eleve"],
+        budget: ["moyen", "confort"],
         why: "Ville compacte, riche en histoire, avec une atmosphère accueillante et facile à parcourir à pied.",
         activities: ["Visite du château d'Édimbourg", "Ascension d'Arthur's Seat", "Balade sur le Royal Mile"]
       },
       {
+        flag: "🇫🇷",
         name: "L'Île de Ré",
-        region: "Charente-Maritime (France)",
+        region: "Charente-Maritime",
         scope: "france",
         environment: ["mer", "campagne"],
         transport: ["voiture", "train"],
         duration: ["court", "semaine"],
-        budget: ["moyen", "eleve"],
+        budget: ["moyen", "confort"],
         why: "Un cadre relaxant entièrement praticable à vélo, parfait pour se ressourcer en toute tranquillité.",
         activities: ["Balades à vélo entre les marais salants", "Visite du Phare des Baleines", "Détente sur les plages"]
       },
       {
+        flag: "🇯🇵",
         name: "Kyoto",
-        region: "Japon (Asie)",
+        region: "Japon",
         scope: "etranger",
         environment: ["ville", "campagne", "mix"],
         transport: ["avion"],
-        duration: ["long"],
-        budget: ["eleve"],
+        duration: ["quinzaine", "long"],
+        budget: ["confort", "premium"],
         why: "Niveau de sécurité extrêmement élevé et transports en commun d'une grande efficacité.",
         activities: ["Visite du sanctuaire Fushimi Inari", "Découverte des jardins zen", "Promenade dans le quartier de Gion"]
       }
@@ -364,6 +442,7 @@
     function showQuestion() {
       const q = questions[currentQuestion];
       document.getElementById('question-title').innerText = q.title;
+      document.getElementById('question-desc').innerText = q.subtitle;
       
       const progress = ((currentQuestion) / questions.length) * 100;
       document.getElementById('progress-fill').style.width = progress + '%';
@@ -373,8 +452,11 @@
 
       q.options.forEach(opt => {
         const btn = document.createElement('button');
-        btn.className = 'btn';
-        btn.innerText = opt.text;
+        btn.className = 'btn-option';
+        btn.innerHTML = `
+          <span class="option-title">${opt.text}</span>
+          <span class="option-desc">${opt.desc}</span>
+        `;
         btn.onclick = () => selectOption(opt.filter);
         optionsContainer.appendChild(btn);
       });
@@ -429,8 +511,10 @@
         const card = document.createElement('div');
         card.className = 'destination-card';
         card.innerHTML = `
-          <h3>${dest.name}</h3>
-          <div class="destination-region">${dest.region}</div>
+          <div class="destination-header">
+            <h3>${dest.flag} ${dest.name}</h3>
+            <span class="destination-badge">${dest.region}</span>
+          </div>
           <p>${dest.why}</p>
           <strong>Activités suggérées :</strong>
           <ul>
